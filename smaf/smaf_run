@@ -1,0 +1,31 @@
+#!/bin/sh
+#
+# A simple example run script
+#
+# Must define LAUNCHER and NPES
+#
+
+NPES="-n 96"
+LAUNCHER="aprun"
+
+BLD_DIR=$HOME/cray_shmem_tests/smaf
+
+export XT_SYMMETRIC_HEAP_SIZE=100000000
+
+#for TEST in output.get_tst_inc_char
+for TEST in `cat smaf_tlist`
+do
+  echo TEST: $TEST  NPES=$NPES
+  $LAUNCHER $NPES $BLD_DIR/$TEST > output.$TEST 2>&1
+  exit_status=$?
+  grep FAIL output.$TEST
+  fail_found=$?
+  # The test passed if the exit status is 0 and no FAIL messages were found.
+  if [[ $exit_status -eq 0 ]] && [[ $fail_found -eq 1 ]] ; then
+    echo PASS: $TEST
+#   rm output.$TEST
+  else
+    echo FAIL: $TEST
+  fi
+  echo "====================================================================="
+done
