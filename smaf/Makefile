@@ -5,10 +5,6 @@
 ### See the top level README file for a description of these macros.
 ###
 
-FC=ftn
-
-FFLAGS=
-
 # Tests with .F90 extension
 TESTS_F90= \
 	get_tst_inc_char \
@@ -45,7 +41,8 @@ TESTS_F90= \
 all:	$(TESTS_F90)
 
 $(TESTS_F90): %:	%.F90
-	-$(FC) $(FFLAGS) -o $@ $<
+	-$(FTN) $(FFLAGS) -o $(CRAY_TEST_BUILD_BIN)/smaf/$@ $< $(FLIBS) \
+		> $(CRAY_TEST_BUILD_OUT)/sma1/$@ 2>&1
 
 clean:
 	rm -f $(TESTS_F90)

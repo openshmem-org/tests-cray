@@ -5,10 +5,6 @@
 ### See the top level README file for a description of these macros.
 ###
 
-CC=CC
-
-CCFLAGS=
-
 TESTS= \
 	all_and_alltypes \
 	all_max_alltypes \
@@ -21,7 +17,8 @@ TESTS= \
 all:	$(TESTS)
 
 $(TESTS): %:	%.cpp
-	-$(CC) $(CCFLAGS) -o $@ $<
+	-$(CXX) $(CXXFLAGS) -o $(CRAY_TEST_BUILD_BIN)/sma2/$@ $< $(CXXLIBS) \
+		> $(CRAY_TEST_BUILD_OUT)/sma2/$@ 2>&1
 
 clean:
 	rm -f $(TESTS)
