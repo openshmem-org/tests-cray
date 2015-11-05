@@ -144,8 +144,8 @@ int main(int argc, char **argv)
                                my_pe,j,targ_float[j],ans_float);
     }
   }
-  shfree(srce_int);    shfree(targ_int);
-  shfree(srce_float);  shfree(targ_float);
+  shmem_free(srce_int);    shmem_free(targ_int);
+  shmem_free(srce_float);  shmem_free(targ_float);
   
 /*  shmem_broadcast64 test   */
   max_elements = (size_t) (MAX_SIZE / sizeof(long));
@@ -203,8 +203,8 @@ int main(int argc, char **argv)
                                my_pe,j,targ_double[j],ans_double);
     }
   }
-  shfree(srce_long);  shfree(targ_long);
-  shfree(srce_double);  shfree(targ_double);
+  shmem_free(srce_long);  shmem_free(targ_long);
+  shmem_free(srce_double);  shmem_free(targ_double);
 
 #ifdef SHMEM_C_GENERIC_32
 
@@ -235,7 +235,7 @@ int main(int argc, char **argv)
         fprintf(stderr, "FAIL: PE [%d] targ_int[%d]=%d ans_int=%d\n",
                                my_pe,j,targ_int[j],ans_int);
     }
-  shfree(srce_int);  shfree(targ_int);
+  shmem_free(srce_int);  shmem_free(targ_int);
 
 #else
 
@@ -266,7 +266,7 @@ int main(int argc, char **argv)
         fprintf(stderr, "FAIL: PE [%d] targ_long[%d]=%d ans_long=%d\n",
                                my_pe,j,targ_long[j],ans_long);
     }
-  shfree(srce_long);  shfree(targ_long);
+  shmem_free(srce_long);  shmem_free(targ_long);
 
 #endif
 

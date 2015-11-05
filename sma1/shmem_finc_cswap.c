@@ -150,7 +150,7 @@ int main(int argc, char **argv)
       i++;
     }
   }
-  shfree(xs);  shfree(xas);
+  shmem_free(xs);  shmem_free(xas);
 
 /*  test shmem_int_finc & shmem_int_swap & shmem_int_cswap */
 
@@ -202,7 +202,7 @@ int main(int argc, char **argv)
       i++;
     }
   }
-  shfree(xi);  shfree(xai);
+  shmem_free(xi);  shmem_free(xai);
 
 /*  test shmem_long_finc & shmem_long_swap & shmem_long_cswap */
 
@@ -254,7 +254,7 @@ int main(int argc, char **argv)
       i++;
     }
   }
-  shfree(xl);  shfree(xal);
+  shmem_free(xl);  shmem_free(xal);
 
 /*  test shmem_longlong_finc & shmem_longlong_swap & shmem_longlong_cswap */
 
@@ -308,7 +308,7 @@ int main(int argc, char **argv)
       i++;
     }
   }
-  shfree(xll);  shfree(xall);
+  shmem_free(xll);  shmem_free(xall);
 
 #endif
 
@@ -364,7 +364,7 @@ int main(int argc, char **argv)
       i++;
     }
   }
-  shfree(xi);  shfree(xai);
+  shmem_free(xi);  shmem_free(xai);
 
 #else
 
@@ -418,7 +418,7 @@ int main(int argc, char **argv)
       i++;
     }
   }
-  shfree(xl);  shfree(xal);
+  shmem_free(xl);  shmem_free(xal);
 
 #endif
 

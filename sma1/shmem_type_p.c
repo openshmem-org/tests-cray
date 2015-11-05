@@ -259,7 +259,7 @@ int main(int argc, char **argv)
   }
 #endif
 
-  shfree(flag);
+  shmem_free(flag);
 #ifdef NEEDS_FINALIZE
   shmem_finalize(); 
 #endif

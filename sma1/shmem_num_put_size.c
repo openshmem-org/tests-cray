@@ -121,7 +121,7 @@ int main(int argc, char **argv)
     }
    }
   }
-  shfree(srce_int);  shfree(targ_int);
+  shmem_free(srce_int);  shmem_free(targ_int);
 
 #ifdef NEEDS_FINALIZE
   shmem_finalize(); 

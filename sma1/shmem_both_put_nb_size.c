@@ -194,11 +194,11 @@ int main(int argc, char **argv)
     }
    }
   }
-  shfree(srce_short);  shfree(targ_short);
-  shfree(srce_int);  shfree(targ_int);
-  shfree(srce_long);  shfree(targ_long);
-  shfree(srce_float);  shfree(targ_float);
-  shfree(srce_double);  shfree(targ_double);
+  shmem_free(srce_short);  shmem_free(targ_short);
+  shmem_free(srce_int);  shmem_free(targ_int);
+  shmem_free(srce_long);  shmem_free(targ_long);
+  shmem_free(srce_float);  shmem_free(targ_float);
+  shmem_free(srce_double);  shmem_free(targ_double);
 #ifdef NEEDS_FINALIZE
   shmem_finalize(); 
 #endif

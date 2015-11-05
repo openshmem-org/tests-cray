@@ -101,7 +101,7 @@ int main(int argc, char **argv)
     if(my_pe == 0 & buffer4 != NULL)
       printf("1 - %02d free --- buffer4=0x%08x, %d bytes\n",
                                j,buffer4,BUFSIZE4);
-    shfree(buffer4);
+    shmem_free(buffer4);
 
 /*  shmalloc / assign buffer2 / count data  */
 
@@ -124,7 +124,7 @@ int main(int argc, char **argv)
     if(my_pe == 0)
       printf("2 - %02d free --- buffer1=0x%08x, %d bytes\n",
                                j,buffer1,BUFSIZE1);
-    shfree(buffer1);
+    shmem_free(buffer1);
 
 /*  shmalloc / assign buffer3 / count data  */
 
@@ -147,7 +147,7 @@ int main(int argc, char **argv)
     if(my_pe == 0)
       printf("3 - %02d free --- buffer2=0x%08x, %d bytes\n",
                                j,buffer2,BUFSIZE2);
-    shfree(buffer2);
+    shmem_free(buffer2);
 
 /*  shmalloc / assign buffer4 / count data  */
 
@@ -170,7 +170,7 @@ int main(int argc, char **argv)
     if(my_pe == 0)
       printf("4 - %02d free --- buffer3=0x%08x, %d bytes\n",
                                j,buffer3,BUFSIZE3);
-    shfree(buffer3);
+    shmem_free(buffer3);
 
   }
 

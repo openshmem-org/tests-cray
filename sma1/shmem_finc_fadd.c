@@ -119,7 +119,7 @@ int main(int argc, char **argv)
                          my_pe, n_pes, j-1, xs[j-1], ITER);
     }
   }
-  shfree(xs);
+  shmem_free(xs);
 
 /*  test shmem_int_fadd  */
 
@@ -151,7 +151,7 @@ int main(int argc, char **argv)
                          my_pe, n_pes, j-1, xi[j-1], ITER);
     }
   }
-  shfree(xi);
+  shmem_free(xi);
 
 /*  test shmem_long_fadd  */
 
@@ -183,7 +183,7 @@ int main(int argc, char **argv)
                          my_pe, n_pes, j-1, xl[j-1], ITER);
     }
   }
-  shfree(xl);
+  shmem_free(xl);
 
 /*  test shmem_longlong_fadd  */
 
@@ -217,7 +217,7 @@ int main(int argc, char **argv)
                          my_pe, n_pes, j-1, xll[j-1], ITER);
     }
   }
-  shfree(xll);
+  shmem_free(xll);
 
 #endif
 
@@ -253,7 +253,7 @@ int main(int argc, char **argv)
                          my_pe, n_pes, j-1, xi[j-1], ITER);
     }
   }
-  shfree(xi);
+  shmem_free(xi);
 
 #else
 
@@ -287,7 +287,7 @@ int main(int argc, char **argv)
                          my_pe, n_pes, j-1, xl[j-1], ITER);
     }
   }
-  shfree(xl);
+  shmem_free(xl);
 
 #endif
 

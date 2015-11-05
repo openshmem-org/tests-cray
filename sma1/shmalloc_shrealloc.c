@@ -87,14 +87,14 @@ int main(int argc, char **argv)
     if (buffer1 == NULL) shmalloc_error();
     for(i=0; i<BUFSIZE1; i++)
         buffer1[i] = 10;
-    shfree(buffer1);
+    shmem_free(buffer1);
     buffer2 = (long *) shmem_malloc( (size_t) (sizeof(long) * BUFSIZE2) );
     if(my_pe == 0)
       printf("12 buffer2=0x%08x\n",buffer2);
     if (buffer2 == NULL) shmalloc_error();
     for(i=0; i<BUFSIZE2; i++)
         buffer2[i] = 100;
-    shfree(buffer2);
+    shmem_free(buffer2);
 
     /*  now allocate some space  */
     buffer = (long *) shmem_malloc( (size_t) (sizeof(long) * BUFSIZE1) );
@@ -134,7 +134,7 @@ int main(int argc, char **argv)
     if (count != BUFSIZE2)
       fprintf(stderr, "FAIL 01 > PE %d of %d: count = %ld expected = %ld\n",
                            my_pe, n_pes, count, BUFSIZE2);
-    shfree(buffer);
+    shmem_free(buffer);
 
 /*  shmalloc / assign data / count data  */
 
