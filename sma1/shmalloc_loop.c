@@ -83,7 +83,7 @@ int main(int argc, char **argv)
 /*  shmalloc / assign buffer1 / count data  */
 
     max_elements_bytes = (size_t) (sizeof(long) * BUFSIZE1);
-    buffer1 = shmalloc( max_elements_bytes );
+    buffer1 = shmem_malloc( max_elements_bytes );
     if(my_pe == 0)
       printf("1 - %02d PE=%4d, buffer1=0x%08x\n",j,my_pe,buffer1);
     if (buffer1 == NULL) shmalloc_error();
@@ -106,7 +106,7 @@ int main(int argc, char **argv)
 /*  shmalloc / assign buffer2 / count data  */
 
     max_elements_bytes = (size_t) (sizeof(long) * BUFSIZE2);
-    buffer2 = shmalloc( max_elements_bytes );
+    buffer2 = shmem_malloc( max_elements_bytes );
     if(my_pe == 0)
       printf("2 - %02d PE=%4d, buffer2=0x%08x\n",j,my_pe,buffer2);
     if (buffer2 == NULL) shmalloc_error();
@@ -129,7 +129,7 @@ int main(int argc, char **argv)
 /*  shmalloc / assign buffer3 / count data  */
 
     max_elements_bytes = (size_t) (sizeof(long) * BUFSIZE3);
-    buffer3 = shmalloc( max_elements_bytes );
+    buffer3 = shmem_malloc( max_elements_bytes );
     if(my_pe == 0)
       printf("3 - %02d PE=%4d, buffer3=0x%08x\n",j,my_pe,buffer3);
     if (buffer3 == NULL) shmalloc_error();
@@ -152,7 +152,7 @@ int main(int argc, char **argv)
 /*  shmalloc / assign buffer4 / count data  */
 
     max_elements_bytes = (size_t) (sizeof(long) * BUFSIZE4);
-    buffer4 = shmalloc( max_elements_bytes );
+    buffer4 = shmem_malloc( max_elements_bytes );
     if(my_pe == 0)
       printf("4 - %02d PE=%4d, buffer4=0x%08x\n",j,my_pe,buffer4);
     if (buffer4 == NULL) shmalloc_error();

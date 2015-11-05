@@ -81,14 +81,14 @@ int main(int argc, char **argv)
 
 /*  try to control garbage on shmalloc/shrealloc - smaller space  */
 
-    buffer1 = (long *) shmalloc( (size_t) (sizeof(long) * BUFSIZE1) );
+    buffer1 = (long *) shmem_malloc( (size_t) (sizeof(long) * BUFSIZE1) );
     if(my_pe == 0)
       printf("11 buffer1=0x%08x\n",buffer1);
     if (buffer1 == NULL) shmalloc_error();
     for(i=0; i<BUFSIZE1; i++)
         buffer1[i] = 10;
     shfree(buffer1);
-    buffer2 = (long *) shmalloc( (size_t) (sizeof(long) * BUFSIZE2) );
+    buffer2 = (long *) shmem_malloc( (size_t) (sizeof(long) * BUFSIZE2) );
     if(my_pe == 0)
       printf("12 buffer2=0x%08x\n",buffer2);
     if (buffer2 == NULL) shmalloc_error();
@@ -97,7 +97,7 @@ int main(int argc, char **argv)
     shfree(buffer2);
 
     /*  now allocate some space  */
-    buffer = (long *) shmalloc( (size_t) (sizeof(long) * BUFSIZE1) );
+    buffer = (long *) shmem_malloc( (size_t) (sizeof(long) * BUFSIZE1) );
     if(my_pe == 0)
       printf("21 buffer=0x%08x\n",buffer);
     if (buffer == NULL) shmalloc_error();
@@ -139,7 +139,7 @@ int main(int argc, char **argv)
 /*  shmalloc / assign data / count data  */
 
     max_elements_bytes = (size_t) (sizeof(long) * BUFSIZE1);
-    buffer = (long *) shmalloc( max_elements_bytes );
+    buffer = (long *) shmem_malloc( max_elements_bytes );
     if(my_pe == 0)
       printf("02 buffer=0x%08x\n",buffer);
     if (buffer == NULL) shmalloc_error();
@@ -158,7 +158,7 @@ int main(int argc, char **argv)
       fprintf(stderr, "Out of memory errors are expected\n");
     shmem_barrier_all();
     max_elements_bytes = (size_t) (sizeof(long) * TOO_BIG);
-    bptr = (long *) shmalloc( max_elements_bytes );
+    bptr = (long *) shmem_malloc( max_elements_bytes );
     if (bptr != NULL)
       fprintf(stderr, "FAIL -- requesting TOO_BIG bytes doesn't get NULL ptr\n");
 

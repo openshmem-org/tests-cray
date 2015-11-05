@@ -112,16 +112,16 @@ int main()
    n_pes = shmem_n_pes();
    lpe=my_pe;
 
-   dpSync=shmalloc(_SHMEM_REDUCE_SYNC_SIZE*sizeof(long));
+   dpSync=shmem_malloc(_SHMEM_REDUCE_SYNC_SIZE*sizeof(long));
    for(i=0;i<_SHMEM_REDUCE_SYNC_SIZE;i++) {
       gpSync[i]=_SHMEM_SYNC_VALUE;
       dpSync[i]=_SHMEM_SYNC_VALUE;
       spSync[i]=_SHMEM_SYNC_VALUE;
    }
       
-   dSource_int=shmalloc(NREDUCE*sizeof(int));
-   dTarget_int=shmalloc(NREDUCE*sizeof(int));
-   dpWrk_int=shmalloc((NREDUCE/2+1 > _SHMEM_REDUCE_MIN_WRKDATA_SIZE ? NREDUCE/2+1 : _SHMEM_REDUCE_MIN_WRKDATA_SIZE)*sizeof(int));
+   dSource_int=shmem_malloc(NREDUCE*sizeof(int));
+   dTarget_int=shmem_malloc(NREDUCE*sizeof(int));
+   dpWrk_int=shmem_malloc((NREDUCE/2+1 > _SHMEM_REDUCE_MIN_WRKDATA_SIZE ? NREDUCE/2+1 : _SHMEM_REDUCE_MIN_WRKDATA_SIZE)*sizeof(int));
 
    for(start=0;start<=MAXSTART;start++) {
       rstride=1; 

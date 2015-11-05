@@ -94,10 +94,10 @@ int main(int argc, char **argv)
   if(my_pe == 0)
     fprintf(stderr,"shmem_broadcast32             max_elements = %d\n",
                                                   max_elements);
-  srce_int = shmalloc(max_elements_bytes);
-  targ_int = shmalloc(max_elements_bytes);
-  srce_float = shmalloc(max_elements_bytes);
-  targ_float = shmalloc(max_elements_bytes);
+  srce_int = shmem_malloc(max_elements_bytes);
+  targ_int = shmem_malloc(max_elements_bytes);
+  srce_float = shmem_malloc(max_elements_bytes);
+  targ_float = shmem_malloc(max_elements_bytes);
   if((srce_int == NULL) || (targ_int == NULL) ||
      (srce_float == NULL) || (targ_float == NULL))
      shmalloc_error();
@@ -153,10 +153,10 @@ int main(int argc, char **argv)
   if(my_pe == 0)
     fprintf(stderr,"shmem_broadcast64             max_elements = %d\n",
                                                   max_elements);
-  srce_long = shmalloc(max_elements_bytes);
-  targ_long = shmalloc(max_elements_bytes);
-  srce_double = shmalloc(max_elements_bytes);
-  targ_double = shmalloc(max_elements_bytes);
+  srce_long = shmem_malloc(max_elements_bytes);
+  targ_long = shmem_malloc(max_elements_bytes);
+  srce_double = shmem_malloc(max_elements_bytes);
+  targ_double = shmem_malloc(max_elements_bytes);
   if((srce_long == NULL) || (targ_long == NULL) ||
      (srce_double == NULL) || (targ_double == NULL))
      shmalloc_error();
@@ -214,8 +214,8 @@ int main(int argc, char **argv)
   if(my_pe == 0)
     fprintf(stderr,"shmem_broadcast (GENERIC 32)  max_elements = %d\n",
                                                   max_elements);
-  srce_int = shmalloc(max_elements_bytes);
-  targ_int = shmalloc(max_elements_bytes);
+  srce_int = shmem_malloc(max_elements_bytes);
+  targ_int = shmem_malloc(max_elements_bytes);
   if((srce_int == NULL) || (targ_int == NULL))
     shmalloc_error();
     for(j = 0; j < max_elements; j++) {
@@ -245,8 +245,8 @@ int main(int argc, char **argv)
   if(my_pe == 0)
     fprintf(stderr,"shmem_broadcast (GENERIC 64)  max_elements = %d\n",
                                                   max_elements);
-  srce_long = shmalloc(max_elements_bytes);
-  targ_long = shmalloc(max_elements_bytes);
+  srce_long = shmem_malloc(max_elements_bytes);
+  targ_long = shmem_malloc(max_elements_bytes);
   if((srce_long == NULL) || (targ_long == NULL))
     shmalloc_error();
   for(j = 0; j < max_elements; j++) {
