@@ -6,11 +6,13 @@
 
 user_setup() {
     export CRAY_TEST_PATH=$PWD/testbin
+    export CRAY_TEST_FILE=$PWD
     export NPES=28
     export CUSTOM_SHMEM_DIR="/lus/scratch/nravi/opt/sma"
     export CC=cc
     export CXX=CC
     export FTN=ftn
+    LAUNCHER=aprun
 }
 
 default_config() {

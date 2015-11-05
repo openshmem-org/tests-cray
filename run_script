@@ -1,5 +1,15 @@
-### A minimal top level run script
+#!/bin/bash
 
-./sma1_run
-./sma2_run
-./smaf_run
+###
+###
+### A minimal top level run script
+### Make sure, the configuration script is ran once
+### before starting this script, and also the tests.
+### compiled and built.
+###
+###
+
+clear
+source ./sma1/sma1_run
+source ./sma2/sma2_run
+source ./smaf/smaf_run

@@ -1,31 +1,21 @@
 #!/bin/sh
 #
-# A simple example run script
-#
-# Must define LAUNCHER and NPES
-#
+# Must define LAUNCHER and NPES in the 
+# configuration script, in the top level directory
 
-NPES="-n 96"
-LAUNCHER="aprun"
-
-BLD_DIR=$HOME/cray_shmem_tests/smaf
-
-export XT_SYMMETRIC_HEAP_SIZE=100000000
-
-#for TEST in output.get_tst_inc_char
-for TEST in `cat smaf_tlist`
+echo "====================================================================="
+for TEST in `cat $CRAY_TEST_FILE/smaf/smaf_tlist`
 do
-  echo TEST: $TEST  NPES=$NPES
-  $LAUNCHER $NPES $BLD_DIR/$TEST > output.$TEST 2>&1
+  $LAUNCHER -n $NPES $CRAY_TEST_BUILD_BIN/smaf/$TEST > $CRAY_TEST_RUN_OUT/smaf/$TEST 2>&1
   exit_status=$?
-  grep FAIL output.$TEST
+  grep FAIL $CRAY_TEST_RUN_OUT/smaf/$TEST
   fail_found=$?
   # The test passed if the exit status is 0 and no FAIL messages were found.
   if [[ $exit_status -eq 0 ]] && [[ $fail_found -eq 1 ]] ; then
-    echo PASS: $TEST
-#   rm output.$TEST
+    echo PASS: NPES: $NPES $TEST
   else
-    echo FAIL: $TEST
+    echo FAIL: NPES: $NPES $TEST
   fi
-  echo "====================================================================="
 done
+echo "====================================================================="
+
