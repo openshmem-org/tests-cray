@@ -3,6 +3,12 @@
 # Must define LAUNCHER and NPES in the 
 # configuration script, in the top level directory
 
+#
+# Copyright (c) 2015 Cray Inc.
+#
+# The contents of this file is proprietary information of Cray Inc.
+# and may not be disclosed without prior written consent.
+#
 echo "====================================================================="
 for TEST in `cat $CRAY_TEST_FILE/sma1/sma1_tlist`
 do

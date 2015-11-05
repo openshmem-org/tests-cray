@@ -4,6 +4,12 @@
 ### macros are defined or certain compile or link options are specified.
 ### See the top level README file for a description of these macros.
 ###
+#
+# Copyright (c) 2015 Cray Inc.
+#
+# The contents of this file is proprietary information of Cray Inc.
+# and may not be disclosed without prior written consent.
+#
 
 # Tests with .F90 extension
 TESTS_F90= \

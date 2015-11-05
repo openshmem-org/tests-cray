@@ -1,5 +1,12 @@
 #!/bin/bash
 
+#
+# Copyright (c) 2015 Cray Inc.
+#
+# The contents of this file is proprietary information of Cray Inc.
+# and may not be disclosed without prior written consent.
+#
+
 # basic configuration script
 # setup and modify the configuration script as necessary
 

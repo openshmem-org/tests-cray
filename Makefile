@@ -1,4 +1,10 @@
 ### A minimal top level Makefile
+#
+# Copyright (c) 2015 Cray Inc.
+#
+# The contents of this file is proprietary information of Cray Inc.
+# and may not be disclosed without prior written consent.
+#
 
 .PHONY: all sma1 sma2 smaf
 

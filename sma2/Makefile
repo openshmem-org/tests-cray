@@ -1,3 +1,9 @@
+#
+# Copyright (c) 2015 Cray Inc.
+#
+# The contents of this file is proprietary information of Cray Inc.
+# and may not be disclosed without prior written consent.
+#
 ###
 ### Depending on the compiling and linking environment used, some of these
 ### tests compile, link and run successfully only when certain
