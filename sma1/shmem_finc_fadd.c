@@ -73,7 +73,7 @@ int main(int argc, char **argv)
   static long  *xl;
   static long long *xll;
 
-  start_pes(0);
+  shmem_init();
   my_pe = shmem_my_pe();
   n_pes = shmem_n_pes();
 #ifdef HAVE_SET_CACHE_INV

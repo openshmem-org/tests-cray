@@ -54,7 +54,7 @@ int main(int argc, char **argv)
   size_t max_elements_bytes;
   static long *x;
 
-  start_pes(0);
+  shmem_init();
   my_pe = shmem_my_pe();
   n_pes = shmem_n_pes();
 #ifdef HAVE_SET_CACHE_INV

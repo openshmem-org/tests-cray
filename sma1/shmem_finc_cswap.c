@@ -79,7 +79,7 @@ int main(int argc, char **argv)
   static long  *xl,*xal;
   static long long *xll,*xall;
 
-  start_pes(0);
+  shmem_init();
   my_pe = shmem_my_pe();
   n_pes = shmem_n_pes();
   my_pes = (short) my_pe;

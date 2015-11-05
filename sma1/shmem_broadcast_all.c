@@ -68,7 +68,7 @@ int main(int argc, char **argv)
   float *srce_float,*targ_float,ans_float;
   double *srce_double,*targ_double,ans_double;
 
-  start_pes(0);
+  shmem_init();
   my_pe = shmem_my_pe();
   n_pes = shmem_n_pes();
 

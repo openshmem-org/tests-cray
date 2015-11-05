@@ -50,7 +50,7 @@
   integer :: max_elements_int
   pointer (addr,x)
 
-  call start_pes(0)
+  call shmem_init()
   my_pe = shmem_my_pe()
   n_pes = shmem_n_pes()
 

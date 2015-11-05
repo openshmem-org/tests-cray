@@ -108,7 +108,7 @@ int main()
    static long spSync[_SHMEM_REDUCE_SYNC_SIZE];
 
 
-   start_pes(0);
+   shmem_init();
    my_pe = shmem_my_pe();
    n_pes = shmem_n_pes();
    lpe=my_pe;

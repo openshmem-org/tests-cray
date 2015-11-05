@@ -66,7 +66,7 @@ int main(int argc, char **argv)
   float *srce_float,*targ_float;
   double *srce_double,*targ_double;
 
-  start_pes(0);
+  shmem_init();
   my_pe = shmem_my_pe();
   n_pes = shmem_n_pes();
   flag = shmem_malloc((size_t) sizeof(int));

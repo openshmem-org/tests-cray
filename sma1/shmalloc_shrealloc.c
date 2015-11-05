@@ -66,7 +66,7 @@ int main(int argc, char **argv)
   static long *buffer,*buffer1,*buffer2,*bptr,*bsave;
   long count;
 
-  start_pes(0);
+  shmem_init();
   my_pe = shmem_my_pe();
   n_pes = shmem_n_pes();
 

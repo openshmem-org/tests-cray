@@ -74,7 +74,7 @@ int main(int argc, char **argv)
 #endif
 
 
-  start_pes(0);
+  shmem_init();
   my_pe = shmem_my_pe();
   n_pes = shmem_n_pes();
   one  = shmem_malloc((size_t) sizeof(int));

@@ -82,7 +82,7 @@ int main(int argc, char **argv)
   long double value_longdouble;
 #endif
 
-  start_pes(0);
+  shmem_init();
   my_pe = shmem_my_pe();
   n_pes = shmem_n_pes();
   flag = shmem_malloc((size_t) sizeof(int));
