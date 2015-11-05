@@ -35,7 +35,9 @@ TESTS= \
 	shmem_type_get \
 	shmem_type_p \
 	shmem_type_put \
-	shmem_type_put_nb 
+	shmem_type_put_nb \
+	align \
+	shmem_global_exit
 
 all:	$(TESTS)
 
