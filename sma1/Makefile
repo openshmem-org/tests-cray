@@ -1,13 +1,15 @@
+#
+# Copyright (c) 2015 Cray Inc.
+#
+# The contents of this file is proprietary information of Cray Inc.
+# and may not be disclosed without prior written consent.
+#
 ###
 ### Depending on the compiling and linking environment used, some of these
 ### tests compile, link and run successfully only when certain
 ### macros are defined or certain compile or link options are specified.
 ### See the top level README file for a description of these macros.
 ###
-
-CC=cc
-
-CFLAGS=
 
 TESTS= \
 	shmalloc_loop \
@@ -39,12 +41,15 @@ TESTS= \
 	shmem_type_get \
 	shmem_type_p \
 	shmem_type_put \
-	shmem_type_put_nb 
+	shmem_type_put_nb \
+	align \
+	shmem_global_exit
 
 all:	$(TESTS)
 
 $(TESTS): %:	%.c
-	-$(CC) $(CFLAGS) -o $@ $<
+	-$(CC) $(CFLAGS) -o $(CRAY_TEST_BUILD_BIN)/sma1/$@ $< $(CLIBS) \
+		> $(CRAY_TEST_BUILD_OUT)/sma1/$@ 2>&1
 
 clean:
 	rm -f $(TESTS)

@@ -66,11 +66,11 @@ int main(int argc, char **argv)
   float *srce_float,*targ_float;
   double *srce_double,*targ_double;
 
-  start_pes(0);
+  shmem_init();
   my_pe = shmem_my_pe();
   n_pes = shmem_n_pes();
-  flag = shmalloc((size_t) sizeof(int));
-  one  = shmalloc((size_t) sizeof(int));
+  flag = shmem_malloc((size_t) sizeof(int));
+  one  = shmem_malloc((size_t) sizeof(int));
   *one  = 1;
 
 /*  fail if trying to use odd number of processors  */
@@ -87,8 +87,8 @@ int main(int argc, char **argv)
   max_elements_bytes = (size_t) (sizeof(int)*max_elements);
   if(my_pe == 0)
     fprintf(stderr,"shmem_put32_nb max_elements = %d\n",max_elements);
-  srce_int = shmalloc(max_elements_bytes);
-  targ_int = shmalloc(max_elements_bytes);
+  srce_int = shmem_malloc(max_elements_bytes);
+  targ_int = shmem_malloc(max_elements_bytes);
   if((srce_int == NULL) || (targ_int == NULL))
     shmalloc_error();
   /* try the different sizes MAX_ITER times */
@@ -121,7 +121,7 @@ int main(int argc, char **argv)
     }
    }
   }
-  shfree(srce_int);  shfree(targ_int);
+  shmem_free(srce_int);  shmem_free(targ_int);
 
 #ifdef NEEDS_FINALIZE
   shmem_finalize(); 

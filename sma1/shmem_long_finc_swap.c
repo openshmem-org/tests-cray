@@ -52,7 +52,7 @@ int main(int argc, char **argv)
   size_t max_elements,max_elements_bytes;
   static long *x,*xa;
 
-  start_pes(0);
+  shmem_init();
   my_pe = shmem_my_pe();
   n_pes = shmem_n_pes();
 #ifdef HAVE_SET_CACHE_INV
@@ -71,11 +71,11 @@ int main(int argc, char **argv)
 /*  shmalloc x & xa on all pes (only use the ones on PE 0)  */
 
   max_elements_bytes = (size_t) (sizeof(long) * n_pes);
-  x = shmalloc( max_elements_bytes );
+  x = shmem_malloc( max_elements_bytes );
   for(i=0; i<n_pes; i++)
     x[i] = 0;
   max_elements_bytes = (size_t) (sizeof(long) * n_pes * ITER);
-  xa = shmalloc( max_elements_bytes );
+  xa = shmem_malloc( max_elements_bytes );
   for(i=0; i<n_pes*ITER; i++)
     xa[i] = 0;
   count = 0;

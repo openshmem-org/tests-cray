@@ -68,7 +68,7 @@ int main(int argc, char **argv)
   float *srce_float,*targ_float,ans_float;
   double *srce_double,*targ_double,ans_double;
 
-  start_pes(0);
+  shmem_init();
   my_pe = shmem_my_pe();
   n_pes = shmem_n_pes();
 
@@ -94,10 +94,10 @@ int main(int argc, char **argv)
   if(my_pe == 0)
     fprintf(stderr,"shmem_broadcast32             max_elements = %d\n",
                                                   max_elements);
-  srce_int = shmalloc(max_elements_bytes);
-  targ_int = shmalloc(max_elements_bytes);
-  srce_float = shmalloc(max_elements_bytes);
-  targ_float = shmalloc(max_elements_bytes);
+  srce_int = shmem_malloc(max_elements_bytes);
+  targ_int = shmem_malloc(max_elements_bytes);
+  srce_float = shmem_malloc(max_elements_bytes);
+  targ_float = shmem_malloc(max_elements_bytes);
   if((srce_int == NULL) || (targ_int == NULL) ||
      (srce_float == NULL) || (targ_float == NULL))
      shmalloc_error();
@@ -144,8 +144,8 @@ int main(int argc, char **argv)
                                my_pe,j,targ_float[j],ans_float);
     }
   }
-  shfree(srce_int);    shfree(targ_int);
-  shfree(srce_float);  shfree(targ_float);
+  shmem_free(srce_int);    shmem_free(targ_int);
+  shmem_free(srce_float);  shmem_free(targ_float);
   
 /*  shmem_broadcast64 test   */
   max_elements = (size_t) (MAX_SIZE / sizeof(long));
@@ -153,10 +153,10 @@ int main(int argc, char **argv)
   if(my_pe == 0)
     fprintf(stderr,"shmem_broadcast64             max_elements = %d\n",
                                                   max_elements);
-  srce_long = shmalloc(max_elements_bytes);
-  targ_long = shmalloc(max_elements_bytes);
-  srce_double = shmalloc(max_elements_bytes);
-  targ_double = shmalloc(max_elements_bytes);
+  srce_long = shmem_malloc(max_elements_bytes);
+  targ_long = shmem_malloc(max_elements_bytes);
+  srce_double = shmem_malloc(max_elements_bytes);
+  targ_double = shmem_malloc(max_elements_bytes);
   if((srce_long == NULL) || (targ_long == NULL) ||
      (srce_double == NULL) || (targ_double == NULL))
      shmalloc_error();
@@ -203,8 +203,8 @@ int main(int argc, char **argv)
                                my_pe,j,targ_double[j],ans_double);
     }
   }
-  shfree(srce_long);  shfree(targ_long);
-  shfree(srce_double);  shfree(targ_double);
+  shmem_free(srce_long);  shmem_free(targ_long);
+  shmem_free(srce_double);  shmem_free(targ_double);
 
 #ifdef SHMEM_C_GENERIC_32
 
@@ -214,8 +214,8 @@ int main(int argc, char **argv)
   if(my_pe == 0)
     fprintf(stderr,"shmem_broadcast (GENERIC 32)  max_elements = %d\n",
                                                   max_elements);
-  srce_int = shmalloc(max_elements_bytes);
-  targ_int = shmalloc(max_elements_bytes);
+  srce_int = shmem_malloc(max_elements_bytes);
+  targ_int = shmem_malloc(max_elements_bytes);
   if((srce_int == NULL) || (targ_int == NULL))
     shmalloc_error();
     for(j = 0; j < max_elements; j++) {
@@ -235,7 +235,7 @@ int main(int argc, char **argv)
         fprintf(stderr, "FAIL: PE [%d] targ_int[%d]=%d ans_int=%d\n",
                                my_pe,j,targ_int[j],ans_int);
     }
-  shfree(srce_int);  shfree(targ_int);
+  shmem_free(srce_int);  shmem_free(targ_int);
 
 #else
 
@@ -245,8 +245,8 @@ int main(int argc, char **argv)
   if(my_pe == 0)
     fprintf(stderr,"shmem_broadcast (GENERIC 64)  max_elements = %d\n",
                                                   max_elements);
-  srce_long = shmalloc(max_elements_bytes);
-  targ_long = shmalloc(max_elements_bytes);
+  srce_long = shmem_malloc(max_elements_bytes);
+  targ_long = shmem_malloc(max_elements_bytes);
   if((srce_long == NULL) || (targ_long == NULL))
     shmalloc_error();
   for(j = 0; j < max_elements; j++) {
@@ -266,7 +266,7 @@ int main(int argc, char **argv)
         fprintf(stderr, "FAIL: PE [%d] targ_long[%d]=%d ans_long=%d\n",
                                my_pe,j,targ_long[j],ans_long);
     }
-  shfree(srce_long);  shfree(targ_long);
+  shmem_free(srce_long);  shmem_free(targ_long);
 
 #endif
 

@@ -82,10 +82,10 @@ int main(int argc, char **argv)
   long double value_longdouble;
 #endif
 
-  start_pes(0);
+  shmem_init();
   my_pe = shmem_my_pe();
   n_pes = shmem_n_pes();
-  flag = shmalloc((size_t) sizeof(int));
+  flag = shmem_malloc((size_t) sizeof(int));
   one  = 1;
 
 /*  fail if trying to use odd number of processors  */
@@ -259,7 +259,7 @@ int main(int argc, char **argv)
   }
 #endif
 
-  shfree(flag);
+  shmem_free(flag);
 #ifdef NEEDS_FINALIZE
   shmem_finalize(); 
 #endif

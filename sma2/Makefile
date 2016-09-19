@@ -1,13 +1,15 @@
+#
+# Copyright (c) 2015 Cray Inc.
+#
+# The contents of this file is proprietary information of Cray Inc.
+# and may not be disclosed without prior written consent.
+#
 ###
 ### Depending on the compiling and linking environment used, some of these
 ### tests compile, link and run successfully only when certain
 ### macros are defined or certain compile or link options are specified.
 ### See the top level README file for a description of these macros.
 ###
-
-CC=CC
-
-CCFLAGS=
 
 TESTS= \
 	all_and_alltypes \
@@ -21,7 +23,8 @@ TESTS= \
 all:	$(TESTS)
 
 $(TESTS): %:	%.cpp
-	-$(CC) $(CCFLAGS) -o $@ $<
+	-$(CXX) $(CXXFLAGS) -o $(CRAY_TEST_BUILD_BIN)/sma2/$@ $< $(CXXLIBS) \
+		> $(CRAY_TEST_BUILD_OUT)/sma2/$@ 2>&1
 
 clean:
 	rm -f $(TESTS)

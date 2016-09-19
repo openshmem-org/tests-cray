@@ -70,11 +70,11 @@ int main(int argc, char **argv)
   float *srce_float,*targ_float;
   double *srce_double,*targ_double;
 
-  start_pes(0);
+  shmem_init();
   my_pe = shmem_my_pe();
   n_pes = shmem_n_pes();
-  flag = shmalloc((size_t) sizeof(int));
-  one  = shmalloc((size_t) sizeof(int));
+  flag = shmem_malloc((size_t) sizeof(int));
+  one  = shmem_malloc((size_t) sizeof(int));
   *one  = 1;
 
 /*  fail if trying to use odd number of processors  */
@@ -92,8 +92,8 @@ int main(int argc, char **argv)
   max_elements_bytes = (size_t) (sizeof(int)*max_elements);
   if(my_pe == 0)
     fprintf(stderr,"shmem_int_put_nb        max_elements = %d\n",max_elements);
-  srce_int = shmalloc(max_elements_bytes);
-  targ_int = shmalloc(max_elements_bytes);
+  srce_int = shmem_malloc(max_elements_bytes);
+  targ_int = shmem_malloc(max_elements_bytes);
   if((srce_int == NULL) || (targ_int == NULL))
     shmalloc_error();
 
@@ -101,8 +101,8 @@ int main(int argc, char **argv)
   max_elements_bytes = (size_t) (sizeof(short)*max_elements);
   if(my_pe == 0)
     fprintf(stderr,"shmem_short_put         max_elements = %d\n",max_elements);
-  srce_short = shmalloc(max_elements_bytes);
-  targ_short = shmalloc(max_elements_bytes);
+  srce_short = shmem_malloc(max_elements_bytes);
+  targ_short = shmem_malloc(max_elements_bytes);
   if((srce_short == NULL) || (targ_short == NULL))
     shmalloc_error();
 
@@ -110,8 +110,8 @@ int main(int argc, char **argv)
   max_elements_bytes = (size_t) (sizeof(long)*max_elements);
   if(my_pe == 0)
     fprintf(stderr,"shmem_long_put_nb       max_elements = %d\n",max_elements);
-  srce_long = shmalloc(max_elements_bytes);
-  targ_long = shmalloc(max_elements_bytes);
+  srce_long = shmem_malloc(max_elements_bytes);
+  targ_long = shmem_malloc(max_elements_bytes);
   if((srce_long == NULL) || (targ_long == NULL))
     shmalloc_error();
 
@@ -119,8 +119,8 @@ int main(int argc, char **argv)
   max_elements_bytes = (size_t) (sizeof(float)*max_elements);
   if(my_pe == 0)
     fprintf(stderr,"shmem_float_put_nb      max_elements = %d\n",max_elements);
-  srce_float = shmalloc(max_elements_bytes);
-  targ_float = shmalloc(max_elements_bytes);
+  srce_float = shmem_malloc(max_elements_bytes);
+  targ_float = shmem_malloc(max_elements_bytes);
   if((srce_float == NULL) || (targ_float == NULL))
     shmalloc_error();
 
@@ -128,8 +128,8 @@ int main(int argc, char **argv)
   max_elements_bytes = (size_t) (sizeof(double)*max_elements);
   if(my_pe == 0)
     fprintf(stderr,"shmem_double_put_nb     max_elements = %d\n",max_elements);
-  srce_double = shmalloc(max_elements_bytes);
-  targ_double = shmalloc(max_elements_bytes);
+  srce_double = shmem_malloc(max_elements_bytes);
+  targ_double = shmem_malloc(max_elements_bytes);
   if((srce_double == NULL) || (targ_double == NULL))
     shmalloc_error();
 
@@ -194,11 +194,11 @@ int main(int argc, char **argv)
     }
    }
   }
-  shfree(srce_short);  shfree(targ_short);
-  shfree(srce_int);  shfree(targ_int);
-  shfree(srce_long);  shfree(targ_long);
-  shfree(srce_float);  shfree(targ_float);
-  shfree(srce_double);  shfree(targ_double);
+  shmem_free(srce_short);  shmem_free(targ_short);
+  shmem_free(srce_int);  shmem_free(targ_int);
+  shmem_free(srce_long);  shmem_free(targ_long);
+  shmem_free(srce_float);  shmem_free(targ_float);
+  shmem_free(srce_double);  shmem_free(targ_double);
 #ifdef NEEDS_FINALIZE
   shmem_finalize(); 
 #endif

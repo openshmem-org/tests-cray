@@ -238,7 +238,7 @@ int main()
    int my_pe,n_pes;
    int i,asfail,nasfail;
 
-   start_pes(0);
+   shmem_init();
    my_pe = shmem_my_pe();
    n_pes = shmem_n_pes();
    lpe=my_pe;

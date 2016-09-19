@@ -107,21 +107,21 @@ int main()
    static long spSync[_SHMEM_REDUCE_SYNC_SIZE];
 
 
-   start_pes(0);
+   shmem_init();
    my_pe = shmem_my_pe();
    n_pes = shmem_n_pes();
    lpe=my_pe;
 
-   dpSync=shmalloc(_SHMEM_REDUCE_SYNC_SIZE*sizeof(long));
+   dpSync=shmem_malloc(_SHMEM_REDUCE_SYNC_SIZE*sizeof(long));
    for(i=0;i<_SHMEM_REDUCE_SYNC_SIZE;i++) {
       gpSync[i]=_SHMEM_SYNC_VALUE;
       dpSync[i]=_SHMEM_SYNC_VALUE;
       spSync[i]=_SHMEM_SYNC_VALUE;
    }
       
-   dSource_double=shmalloc(NREDUCE*sizeof(double));
-   dTarget_double=shmalloc(NREDUCE*sizeof(double));
-   dpWrk_double=shmalloc((NREDUCE/2+1 > _SHMEM_REDUCE_MIN_WRKDATA_SIZE ? NREDUCE/2+1 : _SHMEM_REDUCE_MIN_WRKDATA_SIZE)*sizeof(double));
+   dSource_double=shmem_malloc(NREDUCE*sizeof(double));
+   dTarget_double=shmem_malloc(NREDUCE*sizeof(double));
+   dpWrk_double=shmem_malloc((NREDUCE/2+1 > _SHMEM_REDUCE_MIN_WRKDATA_SIZE ? NREDUCE/2+1 : _SHMEM_REDUCE_MIN_WRKDATA_SIZE)*sizeof(double));
 
    for(start=0;start<=MAXSTART;start++) {
       rstride=1; 

@@ -79,7 +79,7 @@ int main(int argc, char **argv)
   static long  *xl,*xal;
   static long long *xll,*xall;
 
-  start_pes(0);
+  shmem_init();
   my_pe = shmem_my_pe();
   n_pes = shmem_n_pes();
   my_pes = (short) my_pe;
@@ -104,11 +104,11 @@ int main(int argc, char **argv)
 
   /*  shmalloc xs & xas on all pes (only use the ones on PE 0)  */
   max_elements_bytes = (size_t) (sizeof(short) * n_pes);
-  xs = shmalloc( max_elements_bytes );
+  xs = shmem_malloc( max_elements_bytes );
   for(i=0; i<n_pes; i++)
     xs[i] = 0;
   max_elements_bytes = (size_t) (sizeof(short) * n_pes * ITER);
-  xas = shmalloc( max_elements_bytes );
+  xas = shmem_malloc( max_elements_bytes );
   for(i=0; i<n_pes*ITER; i++)
     if (((i/(n_pes-1)) % 2) == 0) {
       xas[i] = 1;
@@ -150,17 +150,17 @@ int main(int argc, char **argv)
       i++;
     }
   }
-  shfree(xs);  shfree(xas);
+  shmem_free(xs);  shmem_free(xas);
 
 /*  test shmem_int_finc & shmem_int_swap & shmem_int_cswap */
 
   /*  shmalloc xi & xai on all pes (only use the ones on PE 0)  */
   max_elements_bytes = (size_t) (sizeof(int) * n_pes);
-  xi = shmalloc( max_elements_bytes );
+  xi = shmem_malloc( max_elements_bytes );
   for(i=0; i<n_pes; i++)
     xi[i] = 0;
   max_elements_bytes = (size_t) (sizeof(int) * n_pes * ITER);
-  xai = shmalloc( max_elements_bytes );
+  xai = shmem_malloc( max_elements_bytes );
   for(i=0; i<n_pes*ITER; i++)
     if (((i/(n_pes-1)) % 2) == 0) {
       xai[i] = 1;
@@ -202,17 +202,17 @@ int main(int argc, char **argv)
       i++;
     }
   }
-  shfree(xi);  shfree(xai);
+  shmem_free(xi);  shmem_free(xai);
 
 /*  test shmem_long_finc & shmem_long_swap & shmem_long_cswap */
 
   /*  shmalloc xl & xal on all pes (only use the ones on PE 0)  */
   max_elements_bytes = (size_t) (sizeof(long) * n_pes);
-  xl = shmalloc( max_elements_bytes );
+  xl = shmem_malloc( max_elements_bytes );
   for(i=0; i<n_pes; i++)
     xl[i] = 0;
   max_elements_bytes = (size_t) (sizeof(long) * n_pes * ITER);
-  xal = shmalloc( max_elements_bytes );
+  xal = shmem_malloc( max_elements_bytes );
   for(i=0; i<n_pes*ITER; i++)
     if (((i/(n_pes-1)) % 2) == 0) {
       xal[i] = 1;
@@ -254,7 +254,7 @@ int main(int argc, char **argv)
       i++;
     }
   }
-  shfree(xl);  shfree(xal);
+  shmem_free(xl);  shmem_free(xal);
 
 /*  test shmem_longlong_finc & shmem_longlong_swap & shmem_longlong_cswap */
 
@@ -262,11 +262,11 @@ int main(int argc, char **argv)
 
   /*  shmalloc xll & xall on all pes (only use the ones on PE 0)  */
   max_elements_bytes = (size_t) (sizeof(long long) * n_pes);
-  xll = shmalloc( max_elements_bytes );
+  xll = shmem_malloc( max_elements_bytes );
   for(i=0; i<n_pes; i++)
     xll[i] = 0;
   max_elements_bytes = (size_t) (sizeof(long long) * n_pes * ITER);
-  xall = shmalloc( max_elements_bytes );
+  xall = shmem_malloc( max_elements_bytes );
   for(i=0; i<n_pes*ITER; i++)
     if (((i/(n_pes-1)) % 2) == 0) {
       xall[i] = 1;
@@ -308,7 +308,7 @@ int main(int argc, char **argv)
       i++;
     }
   }
-  shfree(xll);  shfree(xall);
+  shmem_free(xll);  shmem_free(xall);
 
 #endif
 
@@ -318,11 +318,11 @@ int main(int argc, char **argv)
 
   /*  shmalloc xi & xai on all pes (only use the ones on PE 0)  */
   max_elements_bytes = (size_t) (sizeof(int) * n_pes);
-  xi = shmalloc( max_elements_bytes );
+  xi = shmem_malloc( max_elements_bytes );
   for(i=0; i<n_pes; i++)
     xi[i] = 0;
   max_elements_bytes = (size_t) (sizeof(int) * n_pes * ITER);
-  xai = shmalloc( max_elements_bytes );
+  xai = shmem_malloc( max_elements_bytes );
   for(i=0; i<n_pes*ITER; i++)
     if (((i/(n_pes-1)) % 2) == 0) {
       xai[i] = 1;
@@ -364,7 +364,7 @@ int main(int argc, char **argv)
       i++;
     }
   }
-  shfree(xi);  shfree(xai);
+  shmem_free(xi);  shmem_free(xai);
 
 #else
 
@@ -372,11 +372,11 @@ int main(int argc, char **argv)
 
   /*  shmalloc xl & xal on all pes (only use the ones on PE 0)  */
   max_elements_bytes = (size_t) (sizeof(long) * n_pes);
-  xl = shmalloc( max_elements_bytes );
+  xl = shmem_malloc( max_elements_bytes );
   for(i=0; i<n_pes; i++)
     xl[i] = 0;
   max_elements_bytes = (size_t) (sizeof(long) * n_pes * ITER);
-  xal = shmalloc( max_elements_bytes );
+  xal = shmem_malloc( max_elements_bytes );
   for(i=0; i<n_pes*ITER; i++)
     if (((i/(n_pes-1)) % 2) == 0) {
       xal[i] = 1;
@@ -418,7 +418,7 @@ int main(int argc, char **argv)
       i++;
     }
   }
-  shfree(xl);  shfree(xal);
+  shmem_free(xl);  shmem_free(xal);
 
 #endif
 

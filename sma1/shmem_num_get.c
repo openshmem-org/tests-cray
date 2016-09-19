@@ -70,11 +70,11 @@ int main(int argc, char **argv)
   int *srce_int,*targ_int;
   long *srce_long,*targ_long;
 
-  start_pes(0);
+  shmem_init();
   my_pe = shmem_my_pe();
   n_pes = shmem_n_pes();
-  flag = shmalloc((size_t) sizeof(int));
-  one  = shmalloc((size_t) sizeof(int));
+  flag = shmem_malloc((size_t) sizeof(int));
+  one  = shmem_malloc((size_t) sizeof(int));
   *one  = 1;
 
 /*  fail if trying to use odd number of processors  */
@@ -92,8 +92,8 @@ int main(int argc, char **argv)
   max_elements_bytes = (size_t) (sizeof(char)*max_elements);
   if(my_pe == 0)
     fprintf(stderr,"shmem_getmem            max_elements = %d\n",max_elements);
-  srce_char = shmalloc(max_elements_bytes);
-  targ_char = shmalloc(max_elements_bytes);
+  srce_char = shmem_malloc(max_elements_bytes);
+  targ_char = shmem_malloc(max_elements_bytes);
   if((srce_char == NULL) || (targ_char == NULL))
     shmalloc_error();
   if ( (my_pe % 2) != 0 )
@@ -110,7 +110,7 @@ int main(int argc, char **argv)
         fprintf(stderr, "FAIL: PE [%d] targ_char[%d]=%d my_pe+j+1=%d\n",
                                my_pe,j,targ_char[j],my_pe+j+1);
   }
-  shfree(srce_char);  shfree(targ_char);
+  shmem_free(srce_char);  shmem_free(targ_char);
 
 /*  shmem_get16 test   */
   *flag = 0;
@@ -119,8 +119,8 @@ int main(int argc, char **argv)
   max_elements_bytes = (size_t) (sizeof(short)*max_elements);
   if(my_pe == 0)
     fprintf(stderr,"shmem_get16             max_elements = %d\n",max_elements);
-  srce_short = shmalloc(max_elements_bytes);
-  targ_short = shmalloc(max_elements_bytes);
+  srce_short = shmem_malloc(max_elements_bytes);
+  targ_short = shmem_malloc(max_elements_bytes);
   if((srce_short == NULL) || (targ_short == NULL))
     shmalloc_error();
   if ( (my_pe % 2) != 0 )
@@ -137,7 +137,7 @@ int main(int argc, char **argv)
         fprintf(stderr, "FAIL: PE [%d] targ_short[%d]=%d my_pe+j+1=%d\n",
                                my_pe,j,targ_short[j],my_pe+j+1);
   }
-  shfree(srce_short);  shfree(targ_short);
+  shmem_free(srce_short);  shmem_free(targ_short);
 
 /*  shmem_get32 test   */
   *flag = 0;
@@ -145,8 +145,8 @@ int main(int argc, char **argv)
   max_elements_bytes = (size_t) (sizeof(int)*max_elements);
   if(my_pe == 0)
     fprintf(stderr,"shmem_get32             max_elements = %d\n",max_elements);
-  srce_int = shmalloc(max_elements_bytes);
-  targ_int = shmalloc(max_elements_bytes);
+  srce_int = shmem_malloc(max_elements_bytes);
+  targ_int = shmem_malloc(max_elements_bytes);
   if((srce_int == NULL) || (targ_int == NULL))
     shmalloc_error();
   if ( (my_pe % 2) != 0 )
@@ -163,7 +163,7 @@ int main(int argc, char **argv)
 	fprintf(stderr, "FAIL: PE [%d] targ_int[%d]=%d my_pe+j+1=%d\n",
                                my_pe,j,targ_int[j],my_pe+j+1);
   }
-  shfree(srce_int);  shfree(targ_int);
+  shmem_free(srce_int);  shmem_free(targ_int);
   
 /*  shmem_get64 test   */
   *flag = 0;
@@ -171,8 +171,8 @@ int main(int argc, char **argv)
   max_elements_bytes = (size_t) (sizeof(long)*max_elements);
   if(my_pe == 0)
     fprintf(stderr,"shmem_get64             max_elements = %d\n",max_elements);
-  srce_long = shmalloc(max_elements_bytes);
-  targ_long = shmalloc(max_elements_bytes);
+  srce_long = shmem_malloc(max_elements_bytes);
+  targ_long = shmem_malloc(max_elements_bytes);
   if((srce_long == NULL) || (targ_long == NULL))
     shmalloc_error();
   if ( (my_pe % 2) != 0 )
@@ -189,7 +189,7 @@ int main(int argc, char **argv)
         fprintf(stderr, "FAIL: PE [%d] targ_long[%d]=%d my_pe+j+1=%d\n",
                                my_pe,j,targ_long[j],my_pe+j+1);
   }
-  shfree(srce_long);  shfree(targ_long);
+  shmem_free(srce_long);  shmem_free(targ_long);
 
 /*  shmem_get128 test   */
   *flag = 0;
@@ -200,8 +200,8 @@ int main(int argc, char **argv)
   max_elements = max_elements/2;
   if(my_pe == 0)
     fprintf(stderr,"shmem_get128            max_elements = %d\n",max_elements);
-  srce_long = shmalloc(max_elements_bytes);
-  targ_long = shmalloc(max_elements_bytes);
+  srce_long = shmem_malloc(max_elements_bytes);
+  targ_long = shmem_malloc(max_elements_bytes);
   if((srce_long == NULL) || (targ_long == NULL))
     shmalloc_error();
   if ( (my_pe % 2) != 0 )
@@ -218,7 +218,7 @@ int main(int argc, char **argv)
         fprintf(stderr, "FAIL: PE [%d] targ_long[%d]=%d my_pe+j+1=%d\n",
                                my_pe,j,targ_long[j],my_pe+j+1);
   }
-  shfree(srce_long);  shfree(targ_long);
+  shmem_free(srce_long);  shmem_free(targ_long);
 
 #ifdef SHMEM_C_GENERIC_32
 
@@ -228,8 +228,8 @@ int main(int argc, char **argv)
   max_elements_bytes = (size_t) (sizeof(int)*max_elements);
   if(my_pe == 0)
     fprintf(stderr,"shmem_get (GENERIC 32)  max_elements = %d\n",max_elements);
-  srce_int = shmalloc(max_elements_bytes);
-  targ_int = shmalloc(max_elements_bytes);
+  srce_int = shmem_malloc(max_elements_bytes);
+  targ_int = shmem_malloc(max_elements_bytes);
   if((srce_int == NULL) || (targ_int == NULL))
     shmalloc_error();
   if ( (my_pe % 2) != 0 )
@@ -246,7 +246,7 @@ int main(int argc, char **argv)
         fprintf(stderr, "FAIL: PE [%d] targ_int[%d]=%d my_pe+j+1=%d\n",
                                my_pe,j,targ_int[j],my_pe+j+1);
   }
-  shfree(srce_int);  shfree(targ_int);
+  shmem_free(srce_int);  shmem_free(targ_int);
 
 #else
 
@@ -256,8 +256,8 @@ int main(int argc, char **argv)
   max_elements_bytes = (size_t) (sizeof(long)*max_elements);
   if(my_pe == 0)
     fprintf(stderr,"shmem_get (GENERIC 64)  max_elements = %d\n",max_elements);
-  srce_long = shmalloc(max_elements_bytes);
-  targ_long = shmalloc(max_elements_bytes);
+  srce_long = shmem_malloc(max_elements_bytes);
+  targ_long = shmem_malloc(max_elements_bytes);
   if((srce_long == NULL) || (targ_long == NULL))
     shmalloc_error();
   if ( (my_pe % 2) != 0 )
@@ -274,7 +274,7 @@ int main(int argc, char **argv)
         fprintf(stderr, "FAIL: PE [%d] targ_long[%d]=%d my_pe+j+1=%d\n",
                                my_pe,j,targ_long[j],my_pe+j+1);
   }
-  shfree(srce_long);  shfree(targ_long);
+  shmem_free(srce_long);  shmem_free(targ_long);
 
 #endif
 
