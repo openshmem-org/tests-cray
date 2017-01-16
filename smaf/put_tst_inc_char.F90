@@ -61,6 +61,10 @@
       character*26     :: xr26,yr26,prer26,postr26,br26,pr26,vr26
       common /cmr26/ xr26(N), prer26(M), yr26(N), postr26(M)
 
+#ifdef OPENSHMEM_FORT_SHORT_HEADER
+      integer SHMEM_MY_PE, SHMEM_N_PES
+#endif
+
       vrr='C';           prr='Z';             brr='B';
       vr4='ABCD';        pr4='    ';          br4='WXYZ';
       vr8='ABCDEFGH';    pr8='        ';      br8='STUVWXYZ';
@@ -108,19 +112,22 @@
 !     call subrr ( 111,   N,N,subrrg       )   ! call to generic shmem_put
       call subrr ( 112,   N,N,shmem_character_put )
  
+#ifndef OPENSHMEM
 !     Test character (len=4) calls
       call subr4 ( 211,   N,N,subr4g       )   ! call to generic shmem_put
       call subr4 ( 212,   N,N,shmem_put4   )
-      call subr4 ( 213, 4*N,N,shmem_putmem )   ! len is in bytes
 
 !     Test character (len=8) calls
       call subr8 ( 311, 2*N,N,subr8g       )   ! call to generic shmem_put
       call subr8 ( 312,   N,N,shmem_put8   )
+#endif
+      call subr4 ( 213, 4*N,N,shmem_putmem )   ! len is in bytes
       call subr8 ( 313, 8*N,N,shmem_putmem )   ! len is in bytes
 
 !     Test character*26 calls
 !     call subr26 ( 411,26*N,N,subr26g      )  ! call to generic shmem_put
       call subr26 ( 412,26*N,N,shmem_putmem )  ! len is in bytes
+
 
 #endif
 
@@ -246,7 +253,9 @@
        include 'mpp/shmem.fh'
        integer len,pe
        character     :: xrr, yrr
+#ifndef OPENSHMEM
        call shmem_put (yrr,xrr,len,pe)
+#endif
        return
     end subroutine subrrg
 
@@ -254,7 +263,9 @@
        include 'mpp/shmem.fh'
        integer len,pe
        character (len=4) :: xr4, yr4
+#ifndef OPENSHMEM
        call shmem_put (yr4,xr4,len,pe)
+#endif
        return
     end subroutine subr4g
 
@@ -262,7 +273,9 @@
        include 'mpp/shmem.fh'
        integer len,pe
        character (len=8) :: xr8, yr8
+#ifndef OPENSHMEM
        call shmem_put (yr8,xr8,len,pe)
+#endif
        return
     end subroutine subr8g
 
@@ -270,6 +283,8 @@
        include 'mpp/shmem.fh'
        integer len,pe
        character*26     :: xr26, yr26
+#ifndef OPENSHMEM
        call shmem_put (yr26,xr26,len,pe)
+#endif
        return
     end subroutine subr26g

@@ -90,6 +90,7 @@ int main(int argc, char **argv)
     fprintf(stderr, "shmem_fadd(%s) n_pes=%d\n", argv[0],n_pes);
 
 /*  test shmem_short_fadd  */
+#ifdef HAVE_SHORT
 
   /*  shmalloc xs on all pes (only use the one on PE 0)  */
   max_elements_bytes = (size_t) (sizeof(short) * n_pes);
@@ -120,6 +121,8 @@ int main(int argc, char **argv)
     }
   }
   shmem_free(xs);
+
+#endif
 
 /*  test shmem_int_fadd  */
 
@@ -269,11 +272,23 @@ int main(int argc, char **argv)
 
   for(i=0; i<ITER; i++) {
     if (my_pe != 0) {
+#ifndef OPENSHMEM
       oldjl = shmem_finc(&count_long, 0);  /* get index oldjl from PE 0 */
+#elif __STDC_VERSION__ >= 201112L
+      oldjl = shmem_finc(&count_long, 0);  /* get index oldjl from PE 0 */
+#else
+      oldjl = shmem_long_finc(&count_long, 0);  /* get index oldjl from PE 0 */
+#endif
       modjl = (oldjl % (n_pes-1));  /* PE 0 is just the counter/checker */
         /* add 10 to value in xl[modjl] */
       valuejl = (long) 10;
+#ifndef OPENSHMEM
       oldxmodjl = shmem_fadd(&xl[modjl], valuejl, 0);
+#elif __STDC_VERSION__ >= 201112L
+      oldxmodjl = shmem_fadd(&xl[modjl], valuejl, 0);
+#else
+      oldxmodjl = shmem_long_fadd(&xl[modjl], valuejl, 0);
+#endif
       /* printf("PE=%d,oldjl=%ld,modjl=%ld,oldxmodjl=%ld,valuejl=%ld\n",
                  my_pe,oldjl,modjl,oldxmodjl,valuejl); */
     }

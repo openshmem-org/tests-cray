@@ -66,6 +66,10 @@
       integer (kind=8) :: xr8, yr8, prer8, postr8, br8, pr8, vr8
       common /cmr8/ xr8(N), prer8(M), yr8(N), postr8(M)
 
+#ifdef OPENSHMEM_FORT_SHORT_HEADER
+      integer SHMEM_MY_PE, SHMEM_N_PES
+#endif
+
       vrr=1;       prr=-1;       brr=-100;
       vr1=1;       pr1=-1;       br1=-100;
       vr2=1;       pr2=-1;       br2=-100;
@@ -288,7 +292,11 @@
        include 'mpp/shmem.fh'
        integer len,pe
        integer       :: xrr, yrr
+#ifdef OPENSHMEM
+       call shmem_integer_put (yrr,xrr,len,pe)
+#else
        call shmem_put (yrr,xrr,len,pe)
+#endif
        return
     end subroutine subrrg
 
@@ -296,7 +304,11 @@
        include 'mpp/shmem.fh'
        integer len,pe
        integer (kind=1) :: xr1, yr1
+#ifdef OPENSHMEM
+       call shmem_integer_put (yr1,xr1,len,pe)
+#else
        call shmem_put (yr1,xr1,len,pe)
+#endif
        return
     end subroutine subr1g
 
@@ -304,7 +316,11 @@
        include 'mpp/shmem.fh'
        integer len,pe
        integer (kind=2) :: xr2, yr2
+#ifdef OPENSHMEM
+       call shmem_integer_put (yr2,xr2,len,pe)
+#else
        call shmem_put (yr2,xr2,len,pe)
+#endif
        return
     end subroutine subr2g
 
@@ -312,7 +328,11 @@
        include 'mpp/shmem.fh'
        integer len,pe
        integer (kind=4) :: xr4, yr4
+#ifdef OPENSHMEM
+       call shmem_integer_put (yr4,xr4,len,pe)
+#else
        call shmem_put (yr4,xr4,len,pe)
+#endif
        return
     end subroutine subr4g
 
@@ -320,6 +340,10 @@
        include 'mpp/shmem.fh'
        integer len,pe
        integer (kind=8) :: xr8, yr8
+#ifdef OPENSHMEM
+       call shmem_integer_put (yr8,xr8,len,pe)
+#else
        call shmem_put (yr8,xr8,len,pe)
+#endif
        return
     end subroutine subr8g

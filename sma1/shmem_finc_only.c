@@ -84,6 +84,7 @@ int main(int argc, char **argv)
     fprintf(stderr, "shmem_finc(%s) n_pes=%d\n", argv[0],n_pes);
 
 /*  test shmem_short_finc  */
+#ifdef HAVE_SHORT
 
   /*  shmalloc xs on all pes (only use the one on PE 0)  */
   max_elements_bytes = (size_t) (sizeof(short) * n_pes);
@@ -113,6 +114,8 @@ int main(int argc, char **argv)
     }
   }
   shmem_free(xs);
+
+#endif
 
 /*  test shmem_int_finc  */
 
@@ -258,10 +261,22 @@ int main(int argc, char **argv)
 
   for(i=0; i<ITER; i++) {
     if (my_pe != 0) {
+#ifndef OPENSHMEM
       oldjl = shmem_finc(&count_long, 0);  /* get index oldjl from PE 0 */
+#elif __STDC_VERSION__ >= 201112L
+      oldjl = shmem_finc(&count_long, 0);  /* get index oldjl from PE 0 */
+#else
+      oldjl = shmem_long_finc(&count_long, 0);  /* get index oldjl from PE 0 */
+#endif
       modjl = (oldjl % (n_pes-1));  /* PE 0 is just the counter/checker */
         /* increment value in xl[modjl] */
+#ifndef OPENSHMEM
       oldxmodjl = shmem_finc(&xl[modjl], 0);
+#elif __STDC_VERSION__ >= 201112L
+      oldxmodjl = shmem_finc(&xl[modjl], 0);
+#else
+      oldxmodjl = shmem_long_finc(&xl[modjl], 0);
+#endif
       /* printf("PE=%d,oldjl=%ld,modjl=%ld,oldxmodjl=%ld\n",
                  my_pe,oldjl,modjl,oldxmodjl); */
     }

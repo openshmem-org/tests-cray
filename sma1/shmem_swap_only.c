@@ -91,6 +91,7 @@ int main(int argc, char **argv)
     fprintf(stderr, "shmem_swap(%s) n_pes=%d\n", argv[0],n_pes);
 
 /*  test shmem_short_swap  */
+#ifdef HAVE_SHORT
 
   /*  shmalloc xs on all pes (only check the ones on PE 0)  */
   max_elements_bytes = (size_t) (sizeof(short) * n_pes);
@@ -125,6 +126,8 @@ int main(int argc, char **argv)
     }
   }
   shmem_free(xs);
+
+#endif
 
 /*  test shmem_int_swap  */
 
@@ -367,7 +370,13 @@ int main(int argc, char **argv)
     if (my_pe != 0) {
       my_pel = my_pel + (long) 1;
       /* record PE value in xl[my_pe] -- save PE number */
+#ifndef OPENSHMEM
       oldxl = shmem_swap(&xl[my_pe], my_pel, 0);
+#elif __STDC_VERSION__ >= 201112L
+      oldxl = shmem_swap(&xl[my_pe], my_pel, 0);
+#else
+      oldxl = shmem_long_swap(&xl[my_pe], my_pel, 0);
+#endif
       /* printf("PE=%d,i=%d,my_pel=%d,oldxl=%d\n",my_pe,i,my_pel,oldxl); */
       if (oldxl != oldjl)
         fprintf(stderr, "FAIL pe %d of %d: i=%d, oldxl = %d expected = %d\n",

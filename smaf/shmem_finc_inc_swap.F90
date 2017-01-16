@@ -70,6 +70,14 @@
       real (kind=8)    :: oldxmodjd, oldxad, xd(0:nmax), xad(0:nmax*ITER)
       common /cmr8/ oldxmodjd, oldxad, xd, xad
 
+#ifdef OPENSHMEM_FORT_SHORT_HEADER
+      integer  SHMEM_MY_PE, SHMEM_N_PES
+      integer(kind=4) shmem_int4_finc, shmem_int4_swap
+      integer(kind=8) shmem_int8_finc, shmem_int8_swap
+      integer(kind=4) shmem_real4_swap
+      integer(kind=8) shmem_real8_swap
+#endif
+
       call START_PES(0)
       pe=SHMEM_MY_PE();  pei=pe;  pel=pe;
       npes=SHMEM_N_PES()
@@ -280,6 +288,7 @@
         enddo
       endif
 
+#ifndef OPENSHMEM
 !   test shmem_finc & shmem_swap (GENERIC integer only)
 
       do i=0,npes-1
@@ -326,6 +335,7 @@
           i = i + 1
         enddo
       endif
+#endif
 
 999   continue
       call shmem_barrier_all()

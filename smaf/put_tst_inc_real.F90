@@ -70,6 +70,10 @@
       common /cmr16/ xr16(N), prer16(M), yr16(N), postr16(M)
 #endif
 
+#ifdef OPENSHMEM_FORT_SHORT_HEADER
+      integer SHMEM_MY_PE, SHMEM_N_PES
+#endif
+
       vrr=1.;     prr=-1.;     brr=-100.;
       vr4=1.;     pr4=-1.;     br4=-100.;
       vrd=1.d0;   prd=-1.d0;   brd=-100.d0;
@@ -302,7 +306,11 @@
        include 'mpp/shmem.fh'
        integer len,pe
        real          :: xrr, yrr
+#ifdef OPENSHMEM
+       call shmem_real_put (yrr,xrr,len,pe)
+#else
        call shmem_put (yrr,xrr,len,pe)
+#endif
        return
     end subroutine subrrg
 
@@ -310,7 +318,11 @@
        include 'mpp/shmem.fh'
        integer len,pe
        real (kind=4) :: xr4, yr4
+#ifdef OPENSHMEM
+       call shmem_real_put (yr4,xr4,len,pe)
+#else
        call shmem_put (yr4,xr4,len,pe)
+#endif
        return
     end subroutine subr4g
 
@@ -318,7 +330,11 @@
        include 'mpp/shmem.fh'
        integer len,pe
        double precision :: xrd, yrd
+#ifdef OPENSHMEM
+       call shmem_real_put (yrd,xrd,len,pe)
+#else
        call shmem_put (yrd,xrd,len,pe)
+#endif
        return
     end subroutine subrdg
 
@@ -326,7 +342,11 @@
        include 'mpp/shmem.fh'
        integer len,pe
        real (kind=8) :: xr8, yr8
+#ifdef OPENSHMEM
+       call shmem_real_put (yr8,xr8,len,pe)
+#else
        call shmem_put (yr8,xr8,len,pe)
+#endif
        return
     end subroutine subr8g
 
@@ -335,7 +355,11 @@
        include 'mpp/shmem.fh'
        integer len,pe
        real (kind=16) :: xr16, yr16
+#ifdef OPENSHMEM
+       call shmem_real_put (yr16,xr16,len,pe)
+#else
        call shmem_put (yr16,xr16,len,pe)
+#endif
        return
     end subroutine subr16g
 #endif

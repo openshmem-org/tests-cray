@@ -50,6 +50,11 @@
   integer :: max_elements_int
   pointer (addr,x)
 
+#ifdef OPENSHMEM_FORT_SHORT_HEADER
+  integer  shmem_my_pe, shmem_n_pes
+  integer  shmem_int8_finc
+#endif
+
   call shmem_init()
   my_pe = shmem_my_pe()
   n_pes = shmem_n_pes()

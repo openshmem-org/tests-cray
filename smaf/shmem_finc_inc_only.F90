@@ -53,6 +53,12 @@
       integer (kind=8) :: countl, modjl, oldjl, oldxmodjl, xl(0:nmax)
       common /cmi8/ countl, modjl, oldjl, oldxmodjl, xl
 
+#ifdef OPENSHMEM_FORT_SHORT_HEADER
+      integer  SHMEM_MY_PE, SHMEM_N_PES
+      integer(kind=4) shmem_int4_finc
+      integer(kind=8) shmem_int8_finc
+#endif
+
       call START_PES(0)
       pe=SHMEM_MY_PE()
       npes=SHMEM_N_PES()
@@ -133,6 +139,7 @@
         enddo
       endif
 
+#ifndef OPENSHMEM
 !   test shmem_finc (GENERIC)
 
       do i=0,npes-1
@@ -163,6 +170,7 @@
           endif
         enddo
       endif
+#endif
 
 999   continue
       call shmem_barrier_all()

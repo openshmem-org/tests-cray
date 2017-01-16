@@ -268,7 +268,14 @@ int main(int argc, char **argv)
       targ_long[j] = (long)(my_pe+j);
   shmem_barrier_all();
   if ( (my_pe % 2) == 0 ) {
+#ifndef OPENSHMEM
     shmem_get(targ_long,srce_long,max_elements,my_pe+1);
+#elif __STDC_VERSION__ >= 201112L
+    shmem_get(targ_long,srce_long,max_elements,my_pe+1);
+#else
+    shmem_getmem(targ_long,srce_long,max_elements_bytes,my_pe+1);
+#endif
+
     for(j = 0; j < max_elements; j++)
       if ( targ_long[j] != (long)(my_pe+j+1) )
         fprintf(stderr, "FAIL: PE [%d] targ_long[%d]=%d my_pe+j+1=%d\n",

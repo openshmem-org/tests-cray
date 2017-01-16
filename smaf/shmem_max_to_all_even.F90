@@ -69,6 +69,10 @@
   integer*8 :: pwrk_i8(max(nr/2+1,shmem_reduce_min_wrkdata_size))
   common /comi8/ int8,int8max,ans_i8,pwrk_i8
 
+#ifdef OPENSHMEM_FORT_SHORT_HEADER
+  integer  shmem_my_pe, shmem_n_pes
+#endif
+
   call shmem_init
   n_pes = shmem_n_pes()
   my_pe = shmem_my_pe()
@@ -162,6 +166,7 @@
   enddo
   call shmem_barrier_all
 
+#ifndef OPENSHMEM
 ! test shmem_int2_max_to_all
   int2max(:)=111
   if (my_pe == 0) then
@@ -207,6 +212,7 @@
                                     endif
   enddo
   call shmem_barrier_all
+#endif
 
 ! test shmem_int4_max_to_all
   int4max(:)=111

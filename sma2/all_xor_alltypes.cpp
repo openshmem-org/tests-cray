@@ -102,6 +102,8 @@ long gpSync2[_SHMEM_REDUCE_SYNC_SIZE];
 
 char Case[40];
 
+template <class T> int check_sval_notchanged(T *);
+
 /* Template test function to be called by the processes in active group */
 template <class T> int t_xor(T *Source, T *Target, T *pWrk, long *gpSync, int PE_start, int logPE_stride, int PE_size, int rstride, int SameST)
 {
