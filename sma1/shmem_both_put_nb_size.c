@@ -46,7 +46,7 @@
 #include <mpp/shmem.h>
 
 #define MAX_SIZE 65536
-#define MAX_ITER 100
+#define MAX_ITER 10
 
 void
 shmalloc_error(void)

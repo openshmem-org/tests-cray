@@ -40,7 +40,7 @@
 #include <stdio.h>
 #include <mpp/shmem.h>
 
-#define ITER   1000
+#define ITER   100
 
 long count;
 long lock;
