@@ -52,7 +52,7 @@
 #include <stdio.h>
 #include <mpp/shmem.h>
 
-#define ITER     50
+#define ITER     10
 
 short count_short;
 int count_int;
@@ -272,9 +272,7 @@ int main(int argc, char **argv)
 
   for(i=0; i<ITER; i++) {
     if (my_pe != 0) {
-#ifndef OPENSHMEM
-      oldjl = shmem_finc(&count_long, 0);  /* get index oldjl from PE 0 */
-#elif __STDC_VERSION__ >= 201112L
+#if (defined(__STDC_VERSION__) && __STDC_VERSION__ >= 201112L)
       oldjl = shmem_finc(&count_long, 0);  /* get index oldjl from PE 0 */
 #else
       oldjl = shmem_long_finc(&count_long, 0);  /* get index oldjl from PE 0 */
@@ -282,9 +280,7 @@ int main(int argc, char **argv)
       modjl = (oldjl % (n_pes-1));  /* PE 0 is just the counter/checker */
         /* add 10 to value in xl[modjl] */
       valuejl = (long) 10;
-#ifndef OPENSHMEM
-      oldxmodjl = shmem_fadd(&xl[modjl], valuejl, 0);
-#elif __STDC_VERSION__ >= 201112L
+#if (defined(__STDC_VERSION__) && __STDC_VERSION__ >= 201112L)
       oldxmodjl = shmem_fadd(&xl[modjl], valuejl, 0);
 #else
       oldxmodjl = shmem_long_fadd(&xl[modjl], valuejl, 0);

@@ -58,7 +58,7 @@
 #include <stdio.h>
 #include <mpp/shmem.h>
 
-#define ITER     50  /* ITER must be even number */
+#define ITER     10  /* ITER must be even number */
 
 short count_short;
 int count_int;
@@ -392,9 +392,7 @@ int main(int argc, char **argv)
   for(i=0; i<ITER; i++) {
     if (i == ITER-1) shmem_barrier_all();  /* all PEs participate last time */
     if (my_pe != 0) {
-#ifndef OPENSHMEM
-      oldjl = shmem_finc(&count_long, 0);  /* get index oldjl from PE 0 */
-#elif __STDC_VERSION__ >= 201112L
+#if (defined(__STDC_VERSION__) && __STDC_VERSION__ >= 201112L)
       oldjl = shmem_finc(&count_long, 0);  /* get index oldjl from PE 0 */
 #else
       oldjl = shmem_long_finc(&count_long, 0);  /* get index oldjl from PE 0 */
@@ -402,9 +400,7 @@ int main(int argc, char **argv)
       modjl = (oldjl % (n_pes-1));  /* PE 0 is just the counter/checker */
         /* conditionally record PE value in xal[oldjl] --
              tells PE involved for each count */
-#ifndef OPENSHMEM
-      oldxal = shmem_cswap(&xal[oldjl], vall, my_pell, 0);
-#elif __STDC_VERSION__ >= 201112L
+#if (defined(__STDC_VERSION__) && __STDC_VERSION__ >= 201112L)
       oldxal = shmem_cswap(&xal[oldjl], vall, my_pell, 0);
 #else
       oldxal = shmem_long_cswap(&xal[oldjl], vall, my_pell, 0);
@@ -412,9 +408,7 @@ int main(int argc, char **argv)
       /* printf("PE=%d,i=%d,oldjl=%d,oldxal=%d\n",my_pe,i,oldjl,oldxal); */
       if (oldxal == 1) {
             /* record PE value in xl[modjl] */
-#ifndef OPENSHMEM
-        oldxmodjl = shmem_swap(&xl[modjl], my_pell, 0);
-#elif __STDC_VERSION__ >= 201112L
+#if (defined(__STDC_VERSION__) && __STDC_VERSION__ >= 201112L)
         oldxmodjl = shmem_swap(&xl[modjl], my_pell, 0);
 #else
         oldxmodjl = shmem_long_swap(&xl[modjl], my_pell, 0);

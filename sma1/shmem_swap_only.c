@@ -370,9 +370,7 @@ int main(int argc, char **argv)
     if (my_pe != 0) {
       my_pel = my_pel + (long) 1;
       /* record PE value in xl[my_pe] -- save PE number */
-#ifndef OPENSHMEM
-      oldxl = shmem_swap(&xl[my_pe], my_pel, 0);
-#elif __STDC_VERSION__ >= 201112L
+#if (defined(__STDC_VERSION__) && __STDC_VERSION__ >= 201112L)
       oldxl = shmem_swap(&xl[my_pe], my_pel, 0);
 #else
       oldxl = shmem_long_swap(&xl[my_pe], my_pel, 0);

@@ -261,18 +261,14 @@ int main(int argc, char **argv)
 
   for(i=0; i<ITER; i++) {
     if (my_pe != 0) {
-#ifndef OPENSHMEM
-      oldjl = shmem_finc(&count_long, 0);  /* get index oldjl from PE 0 */
-#elif __STDC_VERSION__ >= 201112L
+#if (defined(__STDC_VERSION__) && __STDC_VERSION__ >= 201112L)
       oldjl = shmem_finc(&count_long, 0);  /* get index oldjl from PE 0 */
 #else
       oldjl = shmem_long_finc(&count_long, 0);  /* get index oldjl from PE 0 */
 #endif
       modjl = (oldjl % (n_pes-1));  /* PE 0 is just the counter/checker */
         /* increment value in xl[modjl] */
-#ifndef OPENSHMEM
-      oldxmodjl = shmem_finc(&xl[modjl], 0);
-#elif __STDC_VERSION__ >= 201112L
+#if (defined(__STDC_VERSION__) && __STDC_VERSION__ >= 201112L)
       oldxmodjl = shmem_finc(&xl[modjl], 0);
 #else
       oldxmodjl = shmem_long_finc(&xl[modjl], 0);
