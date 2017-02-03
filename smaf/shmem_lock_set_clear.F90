@@ -39,7 +39,11 @@
   program shmem_lock_set_clear
   implicit none
   include "mpp/shmem.fh"
-  integer, parameter :: ITER=10
+#ifdef QUICK_TEST
+  integer, parameter :: ITER=1000
+#else
+  integer, parameter :: ITER=100
+#endif
   integer(kind=8) count,lock
   common/longint/ count,lock
   integer :: i,j

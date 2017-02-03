@@ -48,7 +48,11 @@
 #include <stdio.h>
 #include <mpp/shmem.h>
 
-#define ITER     10
+#ifdef QUICK_TEST
+  #define ITER     10
+#else
+  #define ITER     3
+#endif
 
 int main(int argc, char **argv)
 {

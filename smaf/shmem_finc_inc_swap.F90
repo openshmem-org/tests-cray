@@ -49,7 +49,11 @@
       integer pe, npes, i, j, iter, nmax
       integer (kind=4) pei, npesi
       integer (kind=8) pel, npesl
-      parameter (ITER=10, nmax=2048)
+#ifdef QUICK_TEST
+      parameter (ITER=50, nmax=2048)
+#else
+      parameter (ITER=5, nmax=2048)
+#endif
 
       integer          :: countg, modjg, oldjg, oldxmodjg, xg(0:nmax)
       integer          :: oldxag, xag(0:nmax*ITER)

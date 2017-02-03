@@ -58,7 +58,11 @@
 #include <stdio.h>
 #include <mpp/shmem.h>
 
-#define ITER     10  /* ITER must be even number */
+#ifdef QUICK_TEST
+  #define ITER     50  /* ITER must be even number */
+#else
+  #define ITER     10  /* ITER must be even number */
+#endif
 
 short count_short;
 int count_int;

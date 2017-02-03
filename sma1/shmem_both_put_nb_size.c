@@ -46,7 +46,11 @@
 #include <mpp/shmem.h>
 
 #define MAX_SIZE 65536
-#define MAX_ITER 3
+#ifdef QUICK_TEST
+  #define MAX_ITER 100
+#else
+  #define MAX_ITER 10
+#endif
 
 void
 shmalloc_error(void)
@@ -136,6 +140,7 @@ int main(int argc, char **argv)
   if(my_pe == 0)
     fprintf(stderr,"Actual value used for   max_elements = %d\n",max_elements);
   /* try the different sizes MAX_ITER times */
+  printf("MAX_ITER = %d\n", MAX_ITER);
   for (iter = 0; iter < MAX_ITER; iter++) {
    for (i = 0; i < num_elements; i++) {
     *flag = 0;

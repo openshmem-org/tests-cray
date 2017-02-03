@@ -52,7 +52,11 @@
 #include <stdio.h>
 #include <mpp/shmem.h>
 
-#define ITER     10
+#ifdef QUICK_TEST
+  #define ITER     50
+#else
+  #define ITER     5
+#endif
 
 short count_short;
 int count_int;
