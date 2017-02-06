@@ -140,7 +140,6 @@ int main(int argc, char **argv)
   if(my_pe == 0)
     fprintf(stderr,"Actual value used for   max_elements = %d\n",max_elements);
   /* try the different sizes MAX_ITER times */
-  printf("MAX_ITER = %d\n", MAX_ITER);
   for (iter = 0; iter < MAX_ITER; iter++) {
    for (i = 0; i < num_elements; i++) {
     *flag = 0;
