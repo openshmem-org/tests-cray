@@ -38,11 +38,7 @@ int me;
 void *test_align_less_than_64(size_t align) {
     int i;
     int *A;
-#ifdef OPENSHMEM
     A = shmem_align(align, SIZE * sizeof(int));
-#else
-    A = shmem_align(SIZE * sizeof(int), align);
-#endif
 
     if (align <= 64) {
         for (i = 0; i < SIZE; i++) {
