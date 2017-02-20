@@ -41,7 +41,12 @@
 #include <mpp/shmem.h>
 
 #define MAX_SIZE 1024
-#define MAX_ITER 10
+#ifdef QUICK_TEST
+  #define MAX_ITER 10
+#else
+  #define MAX_ITER 3
+#endif
+
 
 void
 shmalloc_error(void)
@@ -107,7 +112,11 @@ int main(int argc, char **argv)
          targ_int[j] = (int)(iter*10000+elements[i]*100+my_pe+j);
      shmem_barrier_all();
      if ( (my_pe % 2) == 0 ) {
+#ifndef OPENSHMEM
        shmem_put32_nb(targ_int,srce_int,elements[i],my_pe+1,NULL);
+#else
+       shmem_put32_nbi(targ_int,srce_int,elements[i],my_pe+1);
+#endif
        shmem_quiet();
        shmem_int_put(flag,one,(size_t)1,my_pe+1);
      } else {

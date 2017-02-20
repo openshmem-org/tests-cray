@@ -61,10 +61,15 @@
   real*4, allocatable :: r4(:,:)
   real*8, allocatable :: r8(:,:)
 
+#ifdef OPENSHMEM_FORT_SHORT_HEADER
+  integer  shmem_my_pe, shmem_n_pes
+#endif
+
   call shmem_init
   n_pes = shmem_n_pes()
   my_pe = shmem_my_pe()
 
+#ifndef OPENSHMEM
 ! test shmem_int2_or_to_all
   if (my_pe == 0) then
     allocate (i2(nr,n_pes))
@@ -103,11 +108,17 @@
                                     endif
   enddo
   call shmem_barrier_all
+#endif
 
 ! test shmem_int4_or_to_all
   if (my_pe == 0) then
     allocate (i4(nr,n_pes))
     allocate (r4(nr,n_pes))
+#ifdef OPENSHMEM
+    call random_seed(size=ismax)
+    allocate (iseed(ismax))
+    iseed = 12345
+#endif
     call random_seed(put=iseed)
     call random_number(r4)
     i4=1000000000*r4

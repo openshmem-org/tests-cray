@@ -104,7 +104,11 @@ int main(int argc, char **argv)
       targ_char[j] = (char)(my_pe+j);
   shmem_barrier_all();
   if ( (my_pe % 2) == 0 ) {
+#ifndef OPENSHMEM
     shmem_putmem_nb(targ_char,srce_char,max_elements,my_pe+1,NULL);
+#else
+    shmem_putmem_nbi(targ_char,srce_char,max_elements,my_pe+1);
+#endif
     shmem_quiet();
     shmem_int_put(flag,one,(size_t)1,my_pe+1);
   } else {
@@ -135,7 +139,11 @@ int main(int argc, char **argv)
       targ_short[j] = (short)(my_pe+j);
   shmem_barrier_all();
   if ( (my_pe % 2) == 0 ) {
+#ifndef OPENSHMEM
     shmem_put16_nb(targ_short,srce_short,max_elements,my_pe+1,NULL);
+#else
+    shmem_put16_nbi(targ_short,srce_short,max_elements,my_pe+1);
+#endif
     shmem_quiet();
     shmem_int_put(flag,one,(size_t)1,my_pe+1);
   } else {
@@ -165,7 +173,11 @@ int main(int argc, char **argv)
       targ_int[j] = (int)(my_pe+j);
   shmem_barrier_all();
   if ( (my_pe % 2) == 0 ) {
+#ifndef OPENSHMEM
     shmem_put32_nb(targ_int,srce_int,max_elements,my_pe+1,NULL);
+#else
+    shmem_put32_nbi(targ_int,srce_int,max_elements,my_pe+1);
+#endif
     shmem_quiet();
     shmem_int_put(flag,one,(size_t)1,my_pe+1);
   } else {
@@ -195,7 +207,11 @@ int main(int argc, char **argv)
       targ_long[j] = (long)(my_pe+j);
   shmem_barrier_all();
   if ( (my_pe % 2) == 0 ) {
+#ifndef OPENSHMEM
     shmem_put64_nb(targ_long,srce_long,max_elements,my_pe+1,NULL);
+#else
+    shmem_put64_nbi(targ_long,srce_long,max_elements,my_pe+1);
+#endif
     shmem_quiet();
     shmem_int_put(flag,one,(size_t)1,my_pe+1);
   } else {
@@ -228,7 +244,11 @@ int main(int argc, char **argv)
       targ_long[j] = (long)(my_pe+j);
   shmem_barrier_all();
   if ( (my_pe % 2) == 0 ) {
+#ifndef OPENSHMEM
     shmem_put128_nb(targ_long,srce_long,max_elements,my_pe+1,NULL);
+#else
+    shmem_put128_nbi(targ_long,srce_long,max_elements,my_pe+1);
+#endif
     shmem_quiet();
     shmem_int_put(flag,one,(size_t)1,my_pe+1);
   } else {
@@ -240,6 +260,7 @@ int main(int argc, char **argv)
   }
   shmem_free(srce_long);  shmem_free(targ_long);
 
+#ifndef OPENSHMEM
 #ifdef SHMEM_C_GENERIC_32
 
 /*  shmem_put_nb (GENERIC 32) test   */
@@ -304,6 +325,7 @@ int main(int argc, char **argv)
   }
   shmem_free(srce_long);  shmem_free(targ_long);
 
+#endif
 #endif
 
 #ifdef NEEDS_FINALIZE

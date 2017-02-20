@@ -108,7 +108,11 @@ int main(int argc, char **argv)
       targ_short[j] = (short)(my_pe+j);
   shmem_barrier_all();
   if ( (my_pe % 2) == 0 ) {
+#ifndef OPENSHMEM
     shmem_short_put_nb(targ_short,srce_short,max_elements,my_pe+1,NULL);
+#else
+    shmem_short_put_nbi(targ_short,srce_short,max_elements,my_pe+1);
+#endif
     shmem_quiet();
     shmem_int_put(flag,one,(size_t)1,my_pe+1);
   } else {
@@ -138,7 +142,11 @@ int main(int argc, char **argv)
       targ_int[j] = (int)(my_pe+j);
   shmem_barrier_all();
   if ( (my_pe % 2) == 0 ) {
+#ifndef OPENSHMEM
     shmem_int_put_nb(targ_int,srce_int,max_elements,my_pe+1,NULL);
+#else
+    shmem_int_put_nbi(targ_int,srce_int,max_elements,my_pe+1);
+#endif
     shmem_quiet();
     shmem_int_put(flag,one,(size_t)1,my_pe+1);
   } else {
@@ -168,7 +176,11 @@ int main(int argc, char **argv)
       targ_long[j] = (long)(my_pe+j);
   shmem_barrier_all();
   if ( (my_pe % 2) == 0 ) {
+#ifndef OPENSHMEM
     shmem_long_put_nb(targ_long,srce_long,max_elements,my_pe+1,NULL);
+#else
+    shmem_long_put_nbi(targ_long,srce_long,max_elements,my_pe+1);
+#endif
     shmem_quiet();
     shmem_int_put(flag,one,(size_t)1,my_pe+1);
   } else {
@@ -198,7 +210,11 @@ int main(int argc, char **argv)
       targ_longlong[j] = (long long)(my_pe+j);
   shmem_barrier_all();
   if ( (my_pe % 2) == 0 ) {
+#ifndef OPENSHMEM
     shmem_longlong_put_nb(targ_longlong,srce_longlong,max_elements,my_pe+1,NULL);
+#else
+    shmem_longlong_put_nbi(targ_longlong,srce_longlong,max_elements,my_pe+1);
+#endif
     shmem_quiet();
     shmem_int_put(flag,one,(size_t)1,my_pe+1);
   } else {
@@ -228,7 +244,11 @@ int main(int argc, char **argv)
       targ_float[j] = (float)(my_pe+j);
   shmem_barrier_all();
   if ( (my_pe % 2) == 0 ) {
+#ifndef OPENSHMEM
     shmem_float_put_nb(targ_float,srce_float,max_elements,my_pe+1,NULL);
+#else
+    shmem_float_put_nbi(targ_float,srce_float,max_elements,my_pe+1);
+#endif
     shmem_quiet();
     shmem_int_put(flag,one,(size_t)1,my_pe+1);
   } else {
@@ -258,7 +278,11 @@ int main(int argc, char **argv)
       targ_double[j] = (double)(my_pe+j);
   shmem_barrier_all();
   if ( (my_pe % 2) == 0 ) {
+#ifndef OPENSHMEM
     shmem_double_put_nb(targ_double,srce_double,max_elements,my_pe+1,NULL);
+#else
+    shmem_double_put_nbi(targ_double,srce_double,max_elements,my_pe+1);
+#endif
     shmem_quiet();
     shmem_int_put(flag,one,(size_t)1,my_pe+1);
   } else {

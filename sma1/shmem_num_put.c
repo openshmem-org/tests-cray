@@ -292,7 +292,11 @@ int main(int argc, char **argv)
       targ_long[j] = (long)(my_pe+j);
   shmem_barrier_all();
   if ( (my_pe % 2) == 0 ) {
+#if (defined(__STDC_VERSION__) && __STDC_VERSION__ >= 201112L)
     shmem_put(targ_long,srce_long,max_elements,my_pe+1);
+#else
+    shmem_putmem(targ_long,srce_long,max_elements_bytes,my_pe+1);
+#endif
     shmem_quiet();
     shmem_int_put(flag,one,(size_t)1,my_pe+1);
   } else {

@@ -53,6 +53,7 @@
 #include <stdlib.h>
 #include <shmem.h>
 #include <unistd.h>
+#include <stdint.h>
 
 #define SIZE 1000
 #define BYTE 64
@@ -63,7 +64,7 @@ int me;
 void *test_align_less_than_64(size_t align) {
     int i;
     int *A;
-    A = shmem_align(SIZE * sizeof(int), align);
+    A = shmem_align(align, SIZE * sizeof(int));
 
     if (align <= 64) {
         for (i = 0; i < SIZE; i++) {
@@ -102,7 +103,8 @@ int main(void) {
     shmem_free(A);
 
     A = test_align_less_than_64 (65);
-    test_output("Alignment greater than 64", (A == NULL));
+    test_output("Alignment greater than 64", ((A != NULL) && is_aligned(A)) );
+    shmem_free(A);
     shmem_finalize();
     return 0;
 }

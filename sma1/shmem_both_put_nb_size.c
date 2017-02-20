@@ -46,7 +46,11 @@
 #include <mpp/shmem.h>
 
 #define MAX_SIZE 65536
-#define MAX_ITER 100
+#ifdef QUICK_TEST
+  #define MAX_ITER 100
+#else
+  #define MAX_ITER 10
+#endif
 
 void
 shmalloc_error(void)
@@ -158,10 +162,17 @@ int main(int argc, char **argv)
        }
      shmem_barrier_all();
      if ( (my_pe % 2) == 0 ) {
+#ifndef OPENSHMEM
        shmem_int_put_nb(targ_int,srce_int,elements[i],my_pe+1,NULL);
        shmem_long_put_nb(targ_long,srce_long,elements[i],my_pe+1,NULL);
        shmem_float_put_nb(targ_float,srce_float,elements[i],my_pe+1,NULL);
        shmem_double_put_nb(targ_double,srce_double,elements[i],my_pe+1,NULL);
+#else
+       shmem_int_put_nbi(targ_int,srce_int,elements[i],my_pe+1);
+       shmem_long_put_nbi(targ_long,srce_long,elements[i],my_pe+1);
+       shmem_float_put_nbi(targ_float,srce_float,elements[i],my_pe+1);
+       shmem_double_put_nbi(targ_double,srce_double,elements[i],my_pe+1);
+#endif
        /* this one is blocking */
        shmem_short_put(targ_short,srce_short,elements[i],my_pe+1);
        shmem_quiet();

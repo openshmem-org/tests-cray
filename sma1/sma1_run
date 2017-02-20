@@ -48,6 +48,7 @@ do
     echo PASS: NPES: $NPES $TEST
   else
     echo FAIL: NPES: $NPES $TEST
+    if [ -n $CRAY_PRINT_IF_FAIL ]; then cat $CRAY_TEST_RUN_OUT/sma1/$TEST; fi
   fi
 done
 echo "====================================================================="

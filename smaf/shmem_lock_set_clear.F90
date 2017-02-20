@@ -39,7 +39,11 @@
   program shmem_lock_set_clear
   implicit none
   include "mpp/shmem.fh"
+#ifdef QUICK_TEST
   integer, parameter :: ITER=1000
+#else
+  integer, parameter :: ITER=100
+#endif
   integer(kind=8) count,lock
   common/longint/ count,lock
   integer :: i,j
@@ -49,6 +53,11 @@
   integer :: errcode,abort=0
   integer :: max_elements_int
   pointer (addr,x)
+
+#ifdef OPENSHMEM_FORT_SHORT_HEADER
+  integer  shmem_my_pe, shmem_n_pes
+  integer  shmem_int8_finc
+#endif
 
   call shmem_init()
   my_pe = shmem_my_pe()
