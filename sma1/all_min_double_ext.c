@@ -59,6 +59,7 @@
 #include <mpp/shmem.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
 
 #ifndef NREDUCE
 #define NREDUCE 7
@@ -255,7 +256,7 @@ int min_double(double *Source, double *Target, int PE_start, int logPE_stride, i
       chtarget=NREDUCE;
       for(lpe=PE_start,j=0;j<PE_size;lpe+=rstride,j++)
          chtarget=chtarget <= SINIT ? chtarget : SINIT;
-      if(abs(Target[i]-chtarget)>1.e-8) {
+      if(fabs(Target[i]-chtarget)>1.e-8) {
 	 if(!fail) printf("FAIL Target[%d]=%f (should be %f) in process %d (in the active set), Case: %s\n",i,Target[i],chtarget,my_pe,Case);
    	 fail=1;
  	 n_err++;
