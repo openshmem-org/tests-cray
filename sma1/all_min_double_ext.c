@@ -97,7 +97,7 @@ int main()
 {
    int start,stride,rmlast,rstride,np_aset,inset,lpe;
    int my_pe,n_pes;
-   int i,fail,n_err,asfail,nasfail;
+   int i,fail,n_err,asfail,nasfail=0;
    char Case[40];
    
    static double sSource_double[NREDUCE];
