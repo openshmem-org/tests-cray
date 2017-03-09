@@ -197,10 +197,10 @@
 !   test shmem_int4_finc & shmem_real4_swap
 
       do i=0,npes-1
-        xi(i) = 0
+        xf(i) = 0
       enddo
       do i=0,npes*ITER-1
-        xai(i) = 0
+        xaf(i) = 0
       enddo
       counti = 0
       call shmem_barrier_all()
@@ -246,10 +246,10 @@
 !   test shmem_int8_finc & shmem_real8_swap
 
       do i=0,npes-1
-        xl(i) = 0
+        xd(i) = 0
       enddo
       do i=0,npes*ITER-1
-        xal(i) = 0
+        xad(i) = 0
       enddo
       countl = 0
       call shmem_barrier_all()
