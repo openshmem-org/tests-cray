@@ -59,6 +59,7 @@
 #include <mpp/shmem.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
 
 #ifndef NREDUCE
 #define NREDUCE 7
@@ -97,7 +98,7 @@ int main()
 {
    int start,stride,rmlast,rstride,np_aset,inset,lpe;
    int my_pe,n_pes;
-   int i,fail,n_err,asfail,nasfail;
+   int i,fail,n_err,asfail,nasfail=0;
    char Case[40];
    
    static double sSource_double[NREDUCE];
@@ -255,7 +256,7 @@ int max_double(double *Source, double *Target, int PE_start, int logPE_stride, i
       chtarget=-n_pes;
       for(lpe=PE_start,j=0;j<PE_size;lpe+=rstride,j++)
          chtarget=chtarget >= SINIT ? chtarget : SINIT;
-      if(abs(Target[i]-chtarget)>1.e-8) {
+      if(fabs(Target[i]-chtarget)>1.e-8) {
 	 if(!fail) printf("FAIL Target[%d]=%f (should be %f) in process %d (in the active set), Case: %s\n",i,Target[i],chtarget,my_pe,Case);
    	 fail=1;
  	 n_err++;
