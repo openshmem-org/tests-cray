@@ -273,7 +273,7 @@
           !                 pe,i,oldjl,oldxad
           if (oldxad .ne. real(0,8)) then
             write (6,fmt="('FAIL PE',i6,' of ',i6,'--i=',i8,&
-                          &' oldxad=',i8,' expected=0')") &
+                          &' oldxad=',f9.0,' expected=0')") &
                             pe,npes,i,oldxad
           endif
         endif
@@ -284,8 +284,8 @@
         i = (ITER-1)*(npes-1)
         do j=1, npes-1
           if (xd(j-1) .ne. xad(i)) then
-            write (6,fmt="('FAIL PE',i6,' of ',i6,'--xd(',i6,')=',i8,&
-                          &' expected=',i6)") &
+            write (6,fmt="('FAIL PE',i6,' of ',i6,'--xd(',i6,')=',f9.0,&
+                          &' expected=',f9.0)") &
                             pe,npes,j-1,xd(j-1),xad(i)
           endif
           i = i + 1
