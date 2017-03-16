@@ -197,10 +197,10 @@
 !   test shmem_int4_finc & shmem_real4_swap
 
       do i=0,npes-1
-        xi(i) = 0
+        xf(i) = 0
       enddo
       do i=0,npes*ITER-1
-        xai(i) = 0
+        xaf(i) = 0
       enddo
       counti = 0
       call shmem_barrier_all()
@@ -246,10 +246,10 @@
 !   test shmem_int8_finc & shmem_real8_swap
 
       do i=0,npes-1
-        xl(i) = 0
+        xd(i) = 0
       enddo
       do i=0,npes*ITER-1
-        xal(i) = 0
+        xad(i) = 0
       enddo
       countl = 0
       call shmem_barrier_all()
@@ -273,7 +273,7 @@
           !                 pe,i,oldjl,oldxad
           if (oldxad .ne. real(0,8)) then
             write (6,fmt="('FAIL PE',i6,' of ',i6,'--i=',i8,&
-                          &' oldxad=',i8,' expected=0')") &
+                          &' oldxad=',f9.0,' expected=0')") &
                             pe,npes,i,oldxad
           endif
         endif
@@ -284,8 +284,8 @@
         i = (ITER-1)*(npes-1)
         do j=1, npes-1
           if (xd(j-1) .ne. xad(i)) then
-            write (6,fmt="('FAIL PE',i6,' of ',i6,'--xd(',i6,')=',i8,&
-                          &' expected=',i6)") &
+            write (6,fmt="('FAIL PE',i6,' of ',i6,'--xd(',i6,')=',f9.0,&
+                          &' expected=',f9.0)") &
                             pe,npes,j-1,xd(j-1),xad(i)
           endif
           i = i + 1
