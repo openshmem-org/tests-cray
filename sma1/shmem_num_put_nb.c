@@ -263,12 +263,12 @@ int main(int argc, char **argv)
 #ifndef OPENSHMEM
 #ifdef SHMEM_C_GENERIC_32
 
-/*  shmem_put_nb (GENERIC 32) test   */
+/*  shmemx_put_nb (GENERIC 32) test   */
   *flag = 0;
   max_elements = (size_t) (MAX_SIZE / sizeof(int));
   max_elements_bytes = (size_t) (sizeof(int)*max_elements);
   if(my_pe == 0)
-    fprintf(stderr,"shmem_put_nb (GENERIC 32)  max_elements = %d\n",max_elements);
+    fprintf(stderr,"shmemx_put_nb (GENERIC 32)  max_elements = %d\n",max_elements);
   srce_int = shmem_malloc(max_elements_bytes);
   targ_int = shmem_malloc(max_elements_bytes);
   if((srce_int == NULL) || (targ_int == NULL))
@@ -281,7 +281,7 @@ int main(int argc, char **argv)
       targ_int[j] = (int)(my_pe+j);
   shmem_barrier_all();
   if ( (my_pe % 2) == 0 ) {
-    shmem_put_nb(targ_int,srce_int,max_elements,my_pe+1,NULL);
+    shmemx_put_nb(targ_int,srce_int,max_elements,my_pe+1,NULL);
     shmem_quiet();
     shmem_int_put(flag,one,(size_t)1,my_pe+1);
   } else {
@@ -295,12 +295,12 @@ int main(int argc, char **argv)
 
 #else
 
-/*  shmem_put_nb (GENERIC 64) test   */
+/*  shmemx_put_nb (GENERIC 64) test   */
   *flag = 0;
   max_elements = (size_t) (MAX_SIZE / sizeof(long));
   max_elements_bytes = (size_t) (sizeof(long)*max_elements);
   if(my_pe == 0)
-    fprintf(stderr,"shmem_put_nb (GENERIC 64)  max_elements = %d\n",max_elements);
+    fprintf(stderr,"shmemx_put_nb (GENERIC 64)  max_elements = %d\n",max_elements);
   srce_long = shmem_malloc(max_elements_bytes);
   targ_long = shmem_malloc(max_elements_bytes);
   if((srce_long == NULL) || (targ_long == NULL))
@@ -313,7 +313,7 @@ int main(int argc, char **argv)
       targ_long[j] = (long)(my_pe+j);
   shmem_barrier_all();
   if ( (my_pe % 2) == 0 ) {
-    shmem_put_nb(targ_long,srce_long,max_elements,my_pe+1,NULL);
+    shmemx_put_nb(targ_long,srce_long,max_elements,my_pe+1,NULL);
     shmem_quiet();
     shmem_int_put(flag,one,(size_t)1,my_pe+1);
   } else {
