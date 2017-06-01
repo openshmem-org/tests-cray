@@ -44,6 +44,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <mpp/shmem.h>
+#include <mpp/shmemx.h>
 
 #define MAX_SIZE 40
 #define IMAX 5
