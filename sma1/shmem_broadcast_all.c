@@ -44,6 +44,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <mpp/shmem.h>
+#include <mpp/shmemx.h>
 
 #define MAX_SIZE 40
 #define IMAX 5
@@ -209,11 +210,11 @@ int main(int argc, char **argv)
 #ifndef OPENSHMEM
 #ifdef SHMEM_C_GENERIC_32
 
-/*  shmem_broadcast (GENERIC 32) test   */
+/*  shmemx_broadcast (GENERIC 32) test   */
   max_elements = (size_t) (MAX_SIZE / sizeof(int));
   max_elements_bytes = (size_t) (sizeof(int)*max_elements);
   if(my_pe == 0)
-    fprintf(stderr,"shmem_broadcast (GENERIC 32)  max_elements = %d\n",
+    fprintf(stderr,"shmemx_broadcast (GENERIC 32)  max_elements = %d\n",
                                                   max_elements);
   srce_int = shmem_malloc(max_elements_bytes);
   targ_int = shmem_malloc(max_elements_bytes);
@@ -225,7 +226,7 @@ int main(int argc, char **argv)
     }
   shmem_barrier_all();
     /* broadcast from PE 1 to all PEs */
-    shmem_broadcast(targ_int,srce_int,max_elements,1,0,0,n_pes,pSync1);
+    shmemx_broadcast(targ_int,srce_int,max_elements,1,0,0,n_pes,pSync1);
     for(j = 0; j < max_elements; j++) {
       if (my_pe == 1) {
         ans_int= (int)(j+2);
@@ -240,11 +241,11 @@ int main(int argc, char **argv)
 
 #else
 
-/*  shmem_broadcast (GENERIC 64) test   */
+/*  shmemx_broadcast (GENERIC 64) test   */
   max_elements = (size_t) (MAX_SIZE / sizeof(long));
   max_elements_bytes = (size_t) (sizeof(long)*max_elements);
   if(my_pe == 0)
-    fprintf(stderr,"shmem_broadcast (GENERIC 64)  max_elements = %d\n",
+    fprintf(stderr,"shmemx_broadcast (GENERIC 64)  max_elements = %d\n",
                                                   max_elements);
   srce_long = shmem_malloc(max_elements_bytes);
   targ_long = shmem_malloc(max_elements_bytes);
@@ -256,7 +257,7 @@ int main(int argc, char **argv)
   }
   shmem_barrier_all();
     /* broadcast from PE 1 to all PEs */
-    shmem_broadcast(targ_long,srce_long,max_elements,1,0,0,n_pes,pSync1);
+    shmemx_broadcast(targ_long,srce_long,max_elements,1,0,0,n_pes,pSync1);
     for(j = 0; j < max_elements; j++) {
       if (my_pe == 1) {
         ans_long = (long)(j+2);
