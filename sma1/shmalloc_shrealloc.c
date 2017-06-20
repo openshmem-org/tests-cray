@@ -34,7 +34,7 @@
 ! Purpose:  Functional tests for the following shmalloc routines ---
 !           shmem_shmalloc
 !           shmem_shfree
-!           shmem_shrealloc 
+!           shmem_shmem_realloc 
 !
 !*********************************************************************/
 #include <stdlib.h>
@@ -52,10 +52,7 @@ shmalloc_error(void)
 {
     fprintf(stderr, "FAIL: not enough memory available\n");
     shmem_barrier_all();
-#ifdef NEEDS_FINALIZE
-    shmem_finalize();
-#endif
-    exit(1);
+    shmem_global_exit(1);
 }
 
 int main(int argc, char **argv)
@@ -77,9 +74,9 @@ int main(int argc, char **argv)
   }
 
   if(my_pe == 0)
-    fprintf(stderr, "shmalloc/shrealloc(%s) n_pes=%d\n", argv[0],n_pes);
+    fprintf(stderr, "shmalloc/shmem_realloc(%s) n_pes=%d\n", argv[0],n_pes);
 
-/*  try to control garbage on shmalloc/shrealloc - smaller space  */
+/*  try to control garbage on shmalloc/shmem_realloc - smaller space  */
 
     buffer1 = (long *) shmem_malloc( (size_t) (sizeof(long) * BUFSIZE1) );
     if(my_pe == 0)
@@ -109,9 +106,9 @@ int main(int argc, char **argv)
     if(my_pe == 0)
       printf("PE %d of %d: count = %ld\n", my_pe, n_pes, count);
 
-    /*  now shrealloc a shorter array  */
+    /*  now shmem_realloc a shorter array  */
     bsave = buffer;
-    bptr = (long *) shrealloc(buffer, (size_t) (sizeof(long) * BUFSIZE2) );
+    bptr = (long *) shmem_realloc(buffer, (size_t) (sizeof(long) * BUFSIZE2) );
     if (bptr == NULL) {
         shmalloc_error();
     } else {
@@ -162,8 +159,8 @@ int main(int argc, char **argv)
     if (bptr != NULL)
       fprintf(stderr, "FAIL -- requesting TOO_BIG bytes doesn't get NULL ptr\n");
 
-/*  shrealloc / check that data is still there - same size allocation */
-    bptr = (long *) shrealloc(buffer, sizeof(long) * BUFSIZE3);
+/*  shmem_realloc / check that data is still there - same size allocation */
+    bptr = (long *) shmem_realloc(buffer, sizeof(long) * BUFSIZE3);
     if(my_pe == 0)
       printf("03 bptr=0x%08x\n",bptr);
     if (bptr == NULL) {
@@ -178,8 +175,8 @@ int main(int argc, char **argv)
       fprintf(stderr, "FAIL 03 > PE %d of %d: count = %ld expected = %ld\n", 
                            my_pe, n_pes, count, BUFSIZE3);
 
-/*  shrealloc / larger size / check that data is still there  */
-    buffer = (long *) shrealloc(buffer, sizeof(long) * BUFSIZE4);
+/*  shmem_realloc / larger size / check that data is still there  */
+    buffer = (long *) shmem_realloc(buffer, sizeof(long) * BUFSIZE4);
     if(my_pe == 0)
       printf("04 buffer=0x%08x\n",buffer);
     if (buffer == NULL) shmalloc_error();
@@ -191,7 +188,7 @@ int main(int argc, char **argv)
       fprintf(stderr, "FAIL 04 > PE %d of %d: count = %ld expected = %ld\n",
                            my_pe, n_pes, count, BUFSIZE3);
 
-/*  shrealloc / ask for TOO_BIG - check that data is still there -
+/*  shmem_realloc / ask for TOO_BIG - check that data is still there -
               pointer should be left unchanged  */
     shmem_barrier_all();
     bsave = buffer;
@@ -200,9 +197,9 @@ int main(int argc, char **argv)
       fprintf(stderr, "Out of memory errors are expected\n");
     }
     shmem_barrier_all();
-    bptr = (long *) shrealloc(buffer, sizeof(long) * TOO_BIG);
+    bptr = (long *) shmem_realloc(buffer, sizeof(long) * TOO_BIG);
     if (bptr != NULL) {
-      fprintf(stderr, "FAIL -- shrealloc TOO_BIG bytes doesn't get NULL ptr\n");
+      fprintf(stderr, "FAIL -- shmem_realloc TOO_BIG bytes doesn't get NULL ptr\n");
     } else {
       buffer = bsave;
     }
@@ -216,8 +213,6 @@ int main(int argc, char **argv)
                              my_pe, n_pes, count, BUFSIZE3);
 
     shmem_barrier_all();
-#ifdef NEEDS_FINALIZE
     shmem_finalize(); 
-#endif
     return 0;
 }
