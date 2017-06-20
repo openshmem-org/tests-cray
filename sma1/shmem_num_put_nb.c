@@ -106,7 +106,7 @@ int main(int argc, char **argv)
   shmem_barrier_all();
   if ( (my_pe % 2) == 0 ) {
 #ifndef OPENSHMEM
-    shmem_putmem_nb(targ_char,srce_char,max_elements,my_pe+1,NULL);
+    shmemx_putmem_nb(targ_char,srce_char,max_elements,my_pe+1,NULL);
 #else
     shmem_putmem_nbi(targ_char,srce_char,max_elements,my_pe+1);
 #endif
@@ -141,7 +141,7 @@ int main(int argc, char **argv)
   shmem_barrier_all();
   if ( (my_pe % 2) == 0 ) {
 #ifndef OPENSHMEM
-    shmem_put16_nb(targ_short,srce_short,max_elements,my_pe+1,NULL);
+    shmemx_put16_nb(targ_short,srce_short,max_elements,my_pe+1,NULL);
 #else
     shmem_put16_nbi(targ_short,srce_short,max_elements,my_pe+1);
 #endif
@@ -175,7 +175,7 @@ int main(int argc, char **argv)
   shmem_barrier_all();
   if ( (my_pe % 2) == 0 ) {
 #ifndef OPENSHMEM
-    shmem_put32_nb(targ_int,srce_int,max_elements,my_pe+1,NULL);
+    shmemx_put32_nb(targ_int,srce_int,max_elements,my_pe+1,NULL);
 #else
     shmem_put32_nbi(targ_int,srce_int,max_elements,my_pe+1);
 #endif
@@ -209,7 +209,7 @@ int main(int argc, char **argv)
   shmem_barrier_all();
   if ( (my_pe % 2) == 0 ) {
 #ifndef OPENSHMEM
-    shmem_put64_nb(targ_long,srce_long,max_elements,my_pe+1,NULL);
+    shmemx_put64_nb(targ_long,srce_long,max_elements,my_pe+1,NULL);
 #else
     shmem_put64_nbi(targ_long,srce_long,max_elements,my_pe+1);
 #endif
@@ -246,7 +246,7 @@ int main(int argc, char **argv)
   shmem_barrier_all();
   if ( (my_pe % 2) == 0 ) {
 #ifndef OPENSHMEM
-    shmem_put128_nb(targ_long,srce_long,max_elements,my_pe+1,NULL);
+    shmemx_put128_nb(targ_long,srce_long,max_elements,my_pe+1,NULL);
 #else
     shmem_put128_nbi(targ_long,srce_long,max_elements,my_pe+1);
 #endif

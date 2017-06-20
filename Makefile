@@ -37,6 +37,8 @@
 
 all: sma1 sma2 smaf
 
+c-only: sma1 sma2
+
 sma1:
 	$(MAKE) $(MAKE_FLAGS) -C sma1 all
 
