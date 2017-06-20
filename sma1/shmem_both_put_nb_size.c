@@ -163,10 +163,10 @@ int main(int argc, char **argv)
      shmem_barrier_all();
      if ( (my_pe % 2) == 0 ) {
 #ifndef OPENSHMEM
-       shmem_int_put_nb(targ_int,srce_int,elements[i],my_pe+1,NULL);
-       shmem_long_put_nb(targ_long,srce_long,elements[i],my_pe+1,NULL);
-       shmem_float_put_nb(targ_float,srce_float,elements[i],my_pe+1,NULL);
-       shmem_double_put_nb(targ_double,srce_double,elements[i],my_pe+1,NULL);
+       shmemx_int_put_nb(targ_int,srce_int,elements[i],my_pe+1,NULL);
+       shmemx_long_put_nb(targ_long,srce_long,elements[i],my_pe+1,NULL);
+       shmemx_float_put_nb(targ_float,srce_float,elements[i],my_pe+1,NULL);
+       shmemx_double_put_nb(targ_double,srce_double,elements[i],my_pe+1,NULL);
 #else
        shmem_int_put_nbi(targ_int,srce_int,elements[i],my_pe+1);
        shmem_long_put_nbi(targ_long,srce_long,elements[i],my_pe+1);

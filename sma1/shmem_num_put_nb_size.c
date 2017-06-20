@@ -113,7 +113,7 @@ int main(int argc, char **argv)
      shmem_barrier_all();
      if ( (my_pe % 2) == 0 ) {
 #ifndef OPENSHMEM
-       shmem_put32_nb(targ_int,srce_int,elements[i],my_pe+1,NULL);
+       shmemx_put32_nb(targ_int,srce_int,elements[i],my_pe+1,NULL);
 #else
        shmem_put32_nbi(targ_int,srce_int,elements[i],my_pe+1);
 #endif
