@@ -64,9 +64,6 @@
       integer (kind=8) :: countl, modjl, oldjl, oldxmodjl, xl(0:nmax)
       integer (kind=8) :: oldxal, xal(0:nmax*ITER)
       common /cmi8/ countl, modjl, oldjl, oldxmodjl, xl, oldxal, xal
-      real             :: valuer
-      real             :: oldxmodjr, oldxar, xr(0:nmax), xar(0:nmax*ITER)
-      common /cmrg/ oldxmodjr, oldxar, xr, xar
       real (kind=4)    :: valuef
       real (kind=4)    :: oldxmodjf, oldxaf, xf(0:nmax), xaf(0:nmax*ITER)
       common /cmr4/ oldxmodjf, oldxaf, xf, xaf
@@ -213,7 +210,7 @@
           npesi = npes
           modji = mod (oldji,(npesi-1_4))   ! PE 0 is just the counter/checker
             ! record PE value in xi(modji)
-          valuef = float(pe)
+          valuef = real(pe,4)
           oldxmodjf = shmem_real4_swap(xf(modji), valuef, 0)
           ! write (6,fmt="('PE=',i6,' oldji=',i8,' modji=',i8,&
           !               &' oldxmodjf=',f9.0)") &
@@ -222,7 +219,7 @@
           oldxaf = shmem_real4_swap(xaf(oldji), valuef, 0);
           ! write (6,fmt="('PE=',i6,' i=',i8,' oldji=',i8,' oldxaf=',f9.0)") &
           !                 pe,i,oldji,oldxaf
-          if (oldxaf .ne. float(0)) then
+          if (oldxaf .ne. real(0,4)) then
             write (6,fmt="('FAIL PE',i6,' of ',i6,'--i=',i8,&
                           &' oldxaf=',f9.0,' expected=0')") &
                             pe,npes,i,oldxaf
