@@ -75,7 +75,7 @@ all:	$(TESTS_F90)
 
 $(TESTS_F90): %:	%.F90
 	-$(FTN) $(FFLAGS) -o $(CRAY_TEST_BUILD_BIN)/smaf/$@ $< $(FLIBS) \
-		> $(CRAY_TEST_BUILD_OUT)/sma1/$@ 2>&1
+		> $(CRAY_TEST_BUILD_OUT)/smaf/$@ 2>&1
 
 clean:
 	rm -f $(TESTS_F90)
